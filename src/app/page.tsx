@@ -1,65 +1,109 @@
-import Image from "next/image";
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import { ArrowRight, Trophy, Users, ShieldCheck, Sparkles, MessageSquare, Play, Calendar } from 'lucide-react';
+import StackedServices from '@/components/web/StackedServices';
+import HorizontalGallery from '@/components/web/HorizontalGallery';
+import TechMarquee from '@/components/web/TechMarquee';
+import HomeContact from '@/components/web/HomeContact';
+import HeroGallery from '@/components/web/HeroGallery';
+import HeroSplitReveal from '@/components/web/HeroSplitReveal';
+import KeyFactsReveal from '@/components/web/KeyFactsReveal';
+import SplitText from '@/components/web/SplitText';
+import CurvedCarousel3D from '@/components/web/CurvedCarousel3D';
+import IndustriesServed from '@/components/web/IndustriesServed';
+import StatsBlock from '@/components/web/StatsBlock';
+import { readDb } from '@/lib/cms';
 
-export default function Home() {
+const INDUSTRIES = [
+  { name: 'Game Studio Pipelines', desc: 'AAA character retopology, rigged models, and custom VFX mapping.' },
+  { name: 'Interactive Marketing', desc: 'Sleek WebGL marketing interfaces, gradient meshes, and game loops.' },
+  { name: 'Virtual Architecture', desc: 'Bespoke high-polygon interior simulations and master plans.' },
+  { name: 'Industrial AR/VR', desc: 'Metaverse twins and immersive training catalog experiences.' }
+];
+
+export default function HomePage() {
+  const db = readDb();
+  const pageData = db.pages.find((p) => p.id === 'home');
+  const testimonials = (db.testimonials || []).map((t: any) => ({
+    quote: t.content || "",
+    author: t.name || "",
+    role: t.role || "",
+    company: t.company || ""
+  }));
+
+  if (!pageData) {
+    return (
+      <div className="min-h-screen bg-bg-dark flex items-center justify-center text-white">
+        <p className="text-xs uppercase font-space font-bold tracking-widest text-red-400">Database Connection Refused</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="relative w-full overflow-x-clip font-sans">
+      {pageData.components.map((comp) => {
+        if (!comp.enabled) return null;
+
+        switch (comp.type) {
+          case 'HeroSplitReveal':
+            return <HeroSplitReveal key={comp.id} content={comp.content} />;
+          
+          case 'StatsBlock':
+            return <StatsBlock key={comp.id} content={comp.content} />;
+
+          case 'HeroGallery':
+            return <HeroGallery key={comp.id} content={comp.content} />;
+
+          case 'ServicesGrid':
+            return <StackedServices key={comp.id} content={comp.content} />;
+
+          case 'KeyFactsReveal':
+            return <KeyFactsReveal key={comp.id} content={comp.content} />;
+
+          case 'TechMarquee':
+            return <TechMarquee key={comp.id} />;
+
+          case 'HorizontalGallery':
+            return (
+              <div key={comp.id} id="works">
+                <HorizontalGallery content={comp.content} />
+              </div>
+            );
+
+          case 'IndustriesServed':
+            return <IndustriesServed key={comp.id} content={comp.content} />;
+
+
+
+          case 'CurvedCarousel3D':
+            const compTestimonials = comp.content?.testimonials 
+              ? comp.content.testimonials 
+              : testimonials;
+            return (
+              <section key={comp.id} className="py-24 bg-bg-dark border-t border-white/5 relative overflow-hidden z-30">
+                <div className="max-w-[105rem] mx-auto px-6 md:px-12 relative z-10 flex flex-col items-center">
+                  <div className="text-center max-w-3xl mx-auto mb-8">
+                    <span className="inline-block mb-8 text-xs text-neon-purple uppercase font-space font-bold tracking-widest bg-neon-purple/10 px-3 py-1.5 rounded-full border border-neon-purple/20">
+                      {comp.content?.subtitle || "TESTIMONIALS"}
+                    </span>
+                    <SplitText
+                      text={comp.content?.heading || "What our co-production partners say"}
+                      className="text-3xl md:text-5xl font-space font-extrabold text-white mt-0 tracking-tight text-center"
+                      as="h3"
+                    />
+                  </div>
+                  <CurvedCarousel3D testimonials={compTestimonials} />
+                </div>
+              </section>
+            );
+
+          case 'HomeContact':
+            return <HomeContact key={comp.id} content={comp.content} />;
+
+          default:
+            return null;
+        }
+      })}
     </div>
   );
 }

@@ -1,0 +1,2101 @@
+{
+  "services": [
+    {
+      "id": "srv-1",
+      "name": "Character Design",
+      "slug": "character-design",
+      "category": "art-animation",
+      "description": "Premium 2D and 3D character design, creation, and production. Our characters are optimized for gaming engines, cinematic animations, and marketing materials.",
+      "features": [
+        "Concept sketches",
+        "High-poly sculpting",
+        "Low-poly optimization",
+        "Texturing & shading"
+      ],
+      "benefits": [
+        "Optimized for Unreal/Unity",
+        "AAA industry standard topology",
+        "Expressive facial blendshapes",
+        "Ready for rigging"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Concept Art",
+          "desc": "Sketching and silhouette studies based on character backstory. Sketching and silhouette studies based on character backstory. Sketching and silhouette studies based on character backstory.",
+          "num": "1"
+        },
+        {
+          "step": "2",
+          "title": "3D Sculpting",
+          "desc": "High-poly detailing in ZBrush for intricate organic forms.",
+          "num": "2"
+        },
+        {
+          "step": "3",
+          "title": "Retopology",
+          "desc": "Clean quad flow optimization for optimal vertex performance.",
+          "num": "3"
+        },
+        {
+          "step": "4",
+          "title": "Texturing",
+          "desc": "PBR metallic-roughness texturing in Substance Painter.",
+          "num": "4"
+        }
+      ],
+      "faqs": [
+        {
+          "q": "What engine formats do you support?",
+          "a": "We provide FBX, OBJ, USD, and native Unreal/Unity assets."
+        },
+        {
+          "q": "Do you include facial rigging?",
+          "a": "Yes, we can include standard ARKit blend shapes for facial motion capture."
+        }
+      ],
+      "icon": "User"
+    },
+    {
+      "id": "srv-4",
+      "name": "Concept Illustration",
+      "slug": "concept-illustration",
+      "category": "art-animation",
+      "description": "High-end conceptual art and environment sketches for media franchises.",
+      "features": [
+        "Character sketches",
+        "Environment concept design",
+        "Keyframe art",
+        "Digital matte paintings"
+      ],
+      "benefits": [
+        "Stunning art assets",
+        "Clear creative blueprint",
+        "High resolution source files",
+        "Rapid concept cycles"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Briefing",
+          "desc": "Aligning on thematic elements, references, and world backstories."
+        },
+        {
+          "step": "2",
+          "title": "Thumbnailing",
+          "desc": "Fast black-and-white silhouette layouts to define scene scale."
+        },
+        {
+          "step": "3",
+          "title": "Refinement",
+          "desc": "Adding primary light directions, line art details, and base tones."
+        },
+        {
+          "step": "4",
+          "title": "Polishing",
+          "desc": "Adding PBR ambient values, final details, and exporting PSD files."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Do you provide source files?",
+          "a": "Yes, we provide layered PSD files along with high-res PNG formats."
+        },
+        {
+          "q": "How many revision cycles are included?",
+          "a": "We include up to 3 major feedback and iteration rounds."
+        }
+      ],
+      "icon": "Image"
+    },
+    {
+      "id": "srv-5",
+      "name": "Cinematic Trailers",
+      "slug": "cinematic-trailers",
+      "category": "art-animation",
+      "description": "Bespoke cinematic animation trailers utilizing real-time engine rendering for trailers and cinematics.",
+      "features": [
+        "Storyboarding & layout",
+        "High-fidelity models",
+        "Motion capture rigging",
+        "Cinematographic lighting"
+      ],
+      "benefits": [
+        "AAA cinematics fidelity",
+        "Optimized engine setups",
+        "Fast rendering turnaround",
+        "Captivating product trailers"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Pre-Viz",
+          "desc": "Drafting story blueprints and simple graybox sequence setups."
+        },
+        {
+          "step": "2",
+          "title": "Assets & Rigging",
+          "desc": "Rigging character models and placing environment props."
+        },
+        {
+          "step": "3",
+          "title": "Sequencing",
+          "desc": "Animating cameras, triggering particle effects, and coding events."
+        },
+        {
+          "step": "4",
+          "title": "Rendering",
+          "desc": "Exporting cinematic sequences with color grading and audio synchronization."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Which engines do you use?",
+          "a": "We specialize in Unreal Engine 5 for real-time cinematic outputs."
+        },
+        {
+          "q": "Can you handle voiceovers?",
+          "a": "Yes, we coordinate sound design, soundtrack licensing, and voice syncing."
+        }
+      ],
+      "icon": "Video"
+    },
+    {
+      "id": "srv-6",
+      "name": "VFX & Simulation",
+      "slug": "vfx-simulation",
+      "category": "art-animation",
+      "description": "Fluid, fire, cloth, and destruction simulations for dynamic gameplay environments.",
+      "features": [
+        "Niagara particle setups",
+        "Destruction systems",
+        "Cloth & softbody physics",
+        "Shader code simulations"
+      ],
+      "benefits": [
+        "Dynamic, reactive game physics",
+        "Performant draw calls",
+        "Tailored environmental assets",
+        "AAA simulation visuals"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Physics Draft",
+          "desc": "Simulating scale physics layouts and viewport benchmarks."
+        },
+        {
+          "step": "2",
+          "title": "Niagara Coding",
+          "desc": "Programming particle vectors and environmental parameters in Unreal."
+        },
+        {
+          "step": "3",
+          "title": "Shader Sync",
+          "desc": "Writing custom material graphs to render simulations efficiently."
+        },
+        {
+          "step": "4",
+          "title": "Tuning",
+          "desc": "Profiling frame draw cycles and optimizing memory budgets."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Are the VFX mobile friendly?",
+          "a": "Yes, we build simplified, lightweight shader equivalents for mobile targets."
+        },
+        {
+          "q": "Can you write custom shader code?",
+          "a": "Absolutely, we write HLSL code to achieve customized fluid and vertex effects."
+        }
+      ],
+      "icon": "Sparkles"
+    },
+    {
+      "id": "srv-2",
+      "name": "AAA Game Development",
+      "slug": "aaa-game-development",
+      "category": "game-development",
+      "description": "Full-cycle game development services for PC, Console, and mobile using Unreal Engine 5 and Unity. We build high-performance gameplay systems and immersive multiplayer worlds.",
+      "features": [
+        "Gameplay programming",
+        "Multiplayer replication",
+        "Graphics optimization",
+        "Cross-play systems"
+      ],
+      "benefits": [
+        "Next-gen graphics fidelity",
+        "Robust netcode framework",
+        "Optimized draw calls and shaders",
+        "Platform-compliant deployment"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Prototyping",
+          "desc": "Graybox testing of core gameplay mechanics and game loops."
+        },
+        {
+          "step": "2",
+          "title": "Production",
+          "desc": "Integrating high-end art assets with replicated code logic."
+        },
+        {
+          "step": "3",
+          "title": "Optimization",
+          "desc": "Profiling CPU/GPU performance and optimizing memory usage."
+        },
+        {
+          "step": "4",
+          "title": "Polishing",
+          "desc": "Adding sound effects, UI/UX animations, and localized text."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Do you offer post-launch support?",
+          "a": "Yes, we provide ongoing updates, bug fixes, and liveops operations support."
+        },
+        {
+          "q": "Can you scale development teams?",
+          "a": "Our teams are highly modular and can scale dynamically using agile production sprints."
+        }
+      ],
+      "icon": "Gamepad"
+    },
+    {
+      "id": "srv-7",
+      "name": "Gameplay Programming",
+      "slug": "gameplay-programming",
+      "category": "game-development",
+      "description": "Structuring clean, robust gameplay loops, character abilities, and input logic.",
+      "features": [
+        "Character control schemes",
+        "Inventory systems",
+        "Combat algorithms",
+        "AI behavior trees"
+      ],
+      "benefits": [
+        "Highly responsive controls",
+        "Decoupled architecture",
+        "Clean code structures",
+        "Fast debugging pipelines"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Loop Prototyping",
+          "desc": "Drafting input vectors and core player mechanic logic."
+        },
+        {
+          "step": "2",
+          "title": "Systems Building",
+          "desc": "Developing inventory, equipment, and health system frameworks."
+        },
+        {
+          "step": "3",
+          "title": "AI Integration",
+          "desc": "Programming behavior controllers and navigating mesh boundaries."
+        },
+        {
+          "step": "4",
+          "title": "Refining",
+          "desc": "Smoothing camera curves, input latency, and adding gameplay metrics."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "What languages do you code in?",
+          "a": "We specialize in C++ for Unreal Engine and C# for Unity development."
+        },
+        {
+          "q": "Can you integrate third-party SDKs?",
+          "a": "Yes, we integrate telemetry, ads, and achievement systems."
+        }
+      ],
+      "icon": "Code"
+    },
+    {
+      "id": "srv-8",
+      "name": "Multiplayer Systems",
+      "slug": "multiplayer-systems",
+      "category": "game-development",
+      "description": "Multiplayer server replication, client-side prediction, and matchmaking gateways.",
+      "features": [
+        "Replication graphs",
+        "Client prediction sync",
+        "Matchmaking databases",
+        "Server orchestrations"
+      ],
+      "benefits": [
+        "Lag-free player sync",
+        "Robust security safeguards",
+        "Highly scalable server setups",
+        "Cross-play compatibility"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Architecting",
+          "desc": "Designing server authorization frameworks and player packet states."
+        },
+        {
+          "step": "2",
+          "title": "Replication",
+          "desc": "Replicating variables and programming client-side predictions."
+        },
+        {
+          "step": "3",
+          "title": "Hosting setup",
+          "desc": "Integrating container server fleets with PlayFab or custom VPS."
+        },
+        {
+          "step": "4",
+          "title": "Stress Testing",
+          "desc": "Simulating high player loads and checking network latency graphs."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Do you support cross-play?",
+          "a": "Yes, we build backend APIs that sync accounts across Steam, Epic, and Console."
+        },
+        {
+          "q": "How do you prevent cheating?",
+          "a": "We use server-authoritative netcode designs and integrate anti-cheat toolkits."
+        }
+      ],
+      "icon": "Users"
+    },
+    {
+      "id": "srv-9",
+      "name": "Console Porting",
+      "slug": "console-porting",
+      "category": "game-development",
+      "description": "Adapting and optimizing PC titles for Xbox Series X/S, PlayStation 5, and Nintendo Switch.",
+      "features": [
+        "Platform SDK wrappers",
+        "Shader optimizations",
+        "Memory profile tuning",
+        "Controller mapping"
+      ],
+      "benefits": [
+        "Expanded player market",
+        "Flawless engine frame rates",
+        "Platform compliance passes",
+        "Optimized memory footprint"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Code Review",
+          "desc": "Assessing memory usage and profiling asset layout bottlenecks."
+        },
+        {
+          "step": "2",
+          "title": "SDK Sync",
+          "desc": "Integrating developer APIs for Xbox Live, PSN, or Switch SDKs."
+        },
+        {
+          "step": "3",
+          "title": "Optimizing",
+          "desc": "Downscaling textures, compiling custom shaders, and adjusting LODs."
+        },
+        {
+          "step": "4",
+          "title": "Certification",
+          "desc": "Testing and verifying compliance requirements for platform submissions."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Do you handle the submission process?",
+          "a": "Yes, we assist with preparing metadata and submitting build files to store dashboards."
+        },
+        {
+          "q": "Can you port older titles?",
+          "a": "We can port titles built on legacy versions of Unreal, Unity, or custom engines."
+        }
+      ],
+      "icon": "Cpu"
+    },
+    {
+      "id": "srv-3",
+      "name": "Custom Corporate Development",
+      "slug": "custom-corporate-development",
+      "category": "web-development",
+      "description": "High-end, performance-driven web development specializing in Next.js, interactive 3D WebGL scenes, and secure cloud infrastructures.",
+      "features": [
+        "Next.js React Server Components",
+        "WebGL integrations",
+        "CMS architecture",
+        "SEO architecture"
+      ],
+      "benefits": [
+        "Sub-second page loading speed",
+        "Interactive marketing experiences",
+        "Enterprise-grade hosting",
+        "SEO ranking improvements"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "UX Wireframing",
+          "desc": "Mapping customer journeys and interaction blueprints."
+        },
+        {
+          "step": "2",
+          "title": "Interactive Prototyping",
+          "desc": "Developing interactive motion mockups in WebGL."
+        },
+        {
+          "step": "3",
+          "title": "Production Code",
+          "desc": "Writing SEO-optimized TypeScript with clean Tailwind styles."
+        },
+        {
+          "step": "4",
+          "title": "Deployment",
+          "desc": "Edge networks optimization with Vercel and AWS CDN setups."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Can you integrate custom APIs?",
+          "a": "Yes, we build robust REST and GraphQL API gateways for custom corporate CRM integrations."
+        },
+        {
+          "q": "Is the website SEO friendly?",
+          "a": "Absolutely, we support server-side rendering (SSR) and automated metadata generator loops."
+        }
+      ],
+      "icon": "Globe"
+    },
+    {
+      "id": "srv-10",
+      "name": "Three.js Interactive",
+      "slug": "threejs-interactive",
+      "category": "web-development",
+      "description": "WebGL-based interactive page elements, custom shaders, and responsive 3D web canvases.",
+      "features": [
+        "Custom GLSL shaders",
+        "Interactive canvases",
+        "Particle wave widgets",
+        "3D product configurators"
+      ],
+      "benefits": [
+        "Immersive web experience",
+        "Hardware-accelerated frames",
+        "Optimized polygon layouts",
+        "High customer conversions"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Asset Pre-Viz",
+          "desc": "Optimizing 3D models and reducing texture resolutions for web loading."
+        },
+        {
+          "step": "2",
+          "title": "Three.js Setup",
+          "desc": "Setting up lights, cameras, rendering loops, and particle arrays."
+        },
+        {
+          "step": "3",
+          "title": "GLSL Coding",
+          "desc": "Writing vertex and fragment shaders for unique particle movements."
+        },
+        {
+          "step": "4",
+          "title": "Performance Sync",
+          "desc": "Profiling GPU frame rates and throttling listeners on mobile viewports."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Does this work on mobile browsers?",
+          "a": "Yes, we perform rigorous profiling to ensure responsiveness on iOS and Android."
+        },
+        {
+          "q": "What asset formats do you support?",
+          "a": "We recommend GLTF/GLB formats for optimized web rendering."
+        }
+      ],
+      "icon": "Box"
+    },
+    {
+      "id": "srv-11",
+      "name": "CMS Architectures",
+      "slug": "cms-architectures",
+      "category": "web-development",
+      "description": "Structured, scalable content management systems leveraging headless platforms.",
+      "features": [
+        "Headless CMS setups",
+        "Custom API gateways",
+        "Structured database fields",
+        "Admin dashboard portals"
+      ],
+      "benefits": [
+        "Dynamic content controls",
+        "Sub-second static rebuilds",
+        "Decoupled web backend",
+        "Excellent editor dashboard UX"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Data Modeling",
+          "desc": "Structuring schemas, block layouts, and input parameters."
+        },
+        {
+          "step": "2",
+          "title": "CMS Sync",
+          "desc": "Configuring headless webhooks and building data retrieval hooks."
+        },
+        {
+          "step": "3",
+          "title": "Rendering",
+          "desc": "Writing Server Components to parse and layout dynamic fields."
+        },
+        {
+          "step": "4",
+          "title": "Rebuild setup",
+          "desc": "Configuring incremental static regeneration for real-time updates."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Can we edit pages ourselves?",
+          "a": "Yes, we construct clear, interactive editing portals with blocks."
+        },
+        {
+          "q": "Which platforms do you integrate?",
+          "a": "We specialize in Sanity, Strapi, Contentful, and local JSON schemas."
+        }
+      ],
+      "icon": "Database"
+    },
+    {
+      "id": "srv-12",
+      "name": "Speed Optimization",
+      "slug": "speed-optimization",
+      "category": "web-development",
+      "description": "Profiling and tweaking next-gen web render pipelines for sub-second load times.",
+      "features": [
+        "Bundle size reduction",
+        "Image compression routes",
+        "Edge cache setups",
+        "Core Web Vitals tuning"
+      ],
+      "benefits": [
+        "Sub-second load speeds",
+        "Higher SEO rankings",
+        "Improved user retention",
+        "Low hosting server costs"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Auditing",
+          "desc": "Analyzing bundle sizes, rendering blockades, and profiling memory usage."
+        },
+        {
+          "step": "2",
+          "title": "Dynamic Loading",
+          "desc": "Setting up lazy loading components and dynamic library splits."
+        },
+        {
+          "step": "3",
+          "title": "Asset Tuning",
+          "desc": "Compressing media directories and setting up Next/Image wrappers."
+        },
+        {
+          "step": "4",
+          "title": "Edge Setup",
+          "desc": "Configuring edge cache headers and CDN distribution nodes."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Can you guarantee a 90+ Lighthouse score?",
+          "a": "We optimize code, bundles, and assets to target 90+ across all metrics."
+        },
+        {
+          "q": "Is optimization safe for existing code?",
+          "a": "Yes, we refactor non-destructively and maintain comprehensive unit tests."
+        }
+      ],
+      "icon": "Zap"
+    },
+    {
+      "id": "srv-13",
+      "name": "VR Training Simulators",
+      "slug": "vr-training-simulators",
+      "category": "ar-vr",
+      "description": "Immersive virtual reality training environments for medical, defense, and industrial sectors.",
+      "features": [
+        "Interactive controller mappings",
+        "Physics collision boxes",
+        "Dynamic scenario triggers",
+        "Multiplayer sync training"
+      ],
+      "benefits": [
+        "Safe training scenarios",
+        "Zero physical resource usage",
+        "Comprehensive telemetry logs",
+        "High training retention rates"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Curriculum Sync",
+          "desc": "Mapping learning objectives and scenario flows."
+        },
+        {
+          "step": "2",
+          "title": "3D asset design",
+          "desc": "Modeling high-fidelity industrial machinery or medical tools."
+        },
+        {
+          "step": "3",
+          "title": "VR Coding",
+          "desc": "Programming interactive controls, collisions, and logic chains in UE5."
+        },
+        {
+          "step": "4",
+          "title": "Profiling",
+          "desc": "Tuning frame rates to 90 FPS+ to prevent simulator sickness."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Which VR headsets are supported?",
+          "a": "We support Meta Quest, HTC Vive, Pico, and Apple Vision Pro."
+        },
+        {
+          "q": "Can you track training scores?",
+          "a": "Yes, we build database adapters that record completion times and errors."
+        }
+      ],
+      "icon": "Smartphone"
+    },
+    {
+      "id": "srv-14",
+      "name": "Virtual Showrooms",
+      "slug": "virtual-showrooms",
+      "category": "ar-vr",
+      "description": "Bespoke WebGL/VR retail environments for realistic product showcasing.",
+      "features": [
+        "Interactive zoom camera",
+        "Custom lighting rigs",
+        "High-fidelity PBR textures",
+        "E-commerce cart syncing"
+      ],
+      "benefits": [
+        "Immersive retail portal",
+        "24/7 global accessibility",
+        "Higher buyer engagement",
+        "Reduced product returns"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Scanning",
+          "desc": "Constructing clean, low-poly geometries from physical prototypes."
+        },
+        {
+          "step": "2",
+          "title": "Scene setup",
+          "desc": "Building lighting templates and environment widgets in WebGL."
+        },
+        {
+          "step": "3",
+          "title": "Integrating",
+          "desc": "Connecting product variant selectors with inventory databases."
+        },
+        {
+          "step": "4",
+          "title": "Polishing",
+          "desc": "Adding soundscapes, material sheen triggers, and mobile profiling."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Does this integrate with Shopify?",
+          "a": "Yes, we write custom React controllers that sync with Shopify APIs."
+        },
+        {
+          "q": "Can players see products in 3D?",
+          "a": "Yes, they can spin, open parts, and change colors in real-time."
+        }
+      ],
+      "icon": "Eye"
+    },
+    {
+      "id": "srv-15",
+      "name": "Spatial Catalogs",
+      "slug": "spatial-catalogs",
+      "category": "ar-vr",
+      "description": "Augmented reality interactive product lists optimized for mobile viewports.",
+      "features": [
+        "AR Quick Look files",
+        "USDZ/GLTF export pipelines",
+        "WebAR mobile views",
+        "Camera dimension scaling"
+      ],
+      "benefits": [
+        "Place items in real rooms",
+        "No app install required",
+        "Frictionless shopping flows",
+        "AAA texture scaling"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Asset Prep",
+          "desc": "Optimizing polygon counts and baking lighting maps into textures."
+        },
+        {
+          "step": "2",
+          "title": "Format Setup",
+          "desc": "Compiling assets into .usdz for Apple and .gltf for Android."
+        },
+        {
+          "step": "3",
+          "title": "Portal Coding",
+          "desc": "Developing web triggers that invoke native AR camera viewports."
+        },
+        {
+          "step": "4",
+          "title": "Testing",
+          "desc": "Verifying lighting scaling accuracy across iOS and Android browsers."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Do users need a custom app?",
+          "a": "No, our WebAR systems trigger native browser frameworks directly."
+        },
+        {
+          "q": "Can items scale to real size?",
+          "a": "Yes, spatial scaling accurately projects 1:1 real-world dimensions."
+        }
+      ],
+      "icon": "Monitor"
+    },
+    {
+      "id": "srv-16",
+      "name": "Metaverse Assets",
+      "slug": "metaverse-assets",
+      "category": "ar-vr",
+      "description": "Decentralized ready-to-rig 3D avatar sets and custom game-ready virtual assets.",
+      "features": [
+        "Ready-to-rig meshes",
+        "Variant generator loops",
+        "Optimized mesh maps",
+        "Engine compliance passes"
+      ],
+      "benefits": [
+        "Interoperable character assets",
+        "Bespoke digital clothing",
+        "AAA resolution sculpts",
+        "Ready for rigging"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Concept Design",
+          "desc": "Illustrating unique styles and clothing accessory blueprints."
+        },
+        {
+          "step": "2",
+          "title": "Mesh sculpting",
+          "desc": "Sculpting modular body shapes and assets in Blender."
+        },
+        {
+          "step": "3",
+          "title": "Rigging Setup",
+          "desc": "Adding skeletons, weight paint skins, and morph triggers."
+        },
+        {
+          "step": "4",
+          "title": "Bundling",
+          "desc": "Compiling asset formats and optimizing engine mesh performance."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Which game engines support these assets?",
+          "a": "We provide rigs compatible with Unreal, Unity, and Godot formats."
+        },
+        {
+          "q": "Do avatars support facial morphs?",
+          "a": "Yes, we include standard ARKit blend shapes for facial tracking."
+        }
+      ],
+      "icon": "UserCheck"
+    },
+    {
+      "id": "srv-17",
+      "name": "Real-Time Walkthroughs",
+      "slug": "real-time-walkthroughs",
+      "category": "arch-viz",
+      "description": "Unreal Engine-based interactive architectural walk-through experiences.",
+      "features": [
+        "High-fidelity geometry",
+        "Lumen dynamic lighting",
+        "Material variant switches",
+        "First-person navigation controllers"
+      ],
+      "benefits": [
+        "Interactive scene walk",
+        "Hyper-realistic rendering",
+        "Instantly change materials",
+        "Immersive blueprint scale"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "CAD Import",
+          "desc": "Importing Revit or AutoCAD blueprints and cleaning up vertex flows."
+        },
+        {
+          "step": "2",
+          "title": "Lighting Rigs",
+          "desc": "Setting up Unreal Lumen sun-position coordinates and global lighting."
+        },
+        {
+          "step": "3",
+          "title": "Material Baking",
+          "desc": "Applying PBR concrete, wood, glass, and metal surface shaders."
+        },
+        {
+          "step": "4",
+          "title": "Coding controls",
+          "desc": "Programming character navigation and material picker menus."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Do you support VR walkthroughs?",
+          "a": "Yes, we can package the walkthrough to load on Oculus/Meta headsets."
+        },
+        {
+          "q": "Can we change furniture inside?",
+          "a": "Absolutely, we can program selectors to swap materials, models, and lighting."
+        }
+      ],
+      "icon": "Compass"
+    },
+    {
+      "id": "srv-18",
+      "name": "Interior CGI Blueprints",
+      "slug": "interior-cgi-blueprints",
+      "category": "arch-viz",
+      "description": "Hyper-realistic architectural CGI rendering for interior designs.",
+      "features": [
+        "Interior assets modeling",
+        "Photometric lighting rigs",
+        "High-res texture details",
+        "Beautiful color grading"
+      ],
+      "benefits": [
+        "Stunning sales imagery",
+        "Zero staging resource cost",
+        "Accurate shadow physics",
+        "Fast rendering turnaround"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Asset Setup",
+          "desc": "Placing furniture models and detailing fabric folds."
+        },
+        {
+          "step": "2",
+          "title": "Camera Angles",
+          "desc": "Setting focal depths and framing shots for composition."
+        },
+        {
+          "step": "3",
+          "title": "Photometrics",
+          "desc": "Importing IES lighting profiles to match physical bulbs."
+        },
+        {
+          "step": "4",
+          "title": "Rendering",
+          "desc": "Exporting high-resolution renders with comprehensive denoising loops."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "What resolutions do you provide?",
+          "a": "We provide renders in 4K, 8K, and custom formats for print banners."
+        },
+        {
+          "q": "Can you match physical furniture brands?",
+          "a": "Yes, we model custom assets to replicate specific furniture products."
+        }
+      ],
+      "icon": "Home"
+    },
+    {
+      "id": "srv-19",
+      "name": "Exterior Renders",
+      "slug": "exterior-renders",
+      "category": "arch-viz",
+      "description": "Atmospheric high-end architectural visualization for exterior facades.",
+      "features": [
+        "Façade mesh detailing",
+        "Landscape rendering",
+        "Dynamic skies setup",
+        "Atmospheric fog widgets"
+      ],
+      "benefits": [
+        "Compelling investor assets",
+        "Accurate terrain heights",
+        "Stunning daytime renders",
+        "High marketing appeal"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Façade cleaning",
+          "desc": "Detailing exterior walls, windows, frames, and materials."
+        },
+        {
+          "step": "2",
+          "title": "Scenery setup",
+          "desc": "Baking trees, foliage, roads, and neighboring architectures."
+        },
+        {
+          "step": "3",
+          "title": "Atmosphere",
+          "desc": "Adding morning dew, sunset shadows, or rainy day reflections."
+        },
+        {
+          "step": "4",
+          "title": "Final Render",
+          "desc": "Running cloud render node passes and color profiles in Photoshop."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Can you render different seasons?",
+          "a": "Yes, we can simulate winter snow, fall foliage, or summer sun scenes."
+        },
+        {
+          "q": "Do you use drone photos?",
+          "a": "Yes, we can composite drone photography with our 3D exterior models."
+        }
+      ],
+      "icon": "Sun"
+    },
+    {
+      "id": "srv-20",
+      "name": "Urban Masterplans",
+      "slug": "urban-masterplans",
+      "category": "arch-viz",
+      "description": "Scale 3D modeling and environment simulations for modern town planning.",
+      "features": [
+        "GIS terrain height maps",
+        "Traffic flow simulations",
+        "Density volume blocks",
+        "Sun shadow study rigs"
+      ],
+      "benefits": [
+        "Accurate planning data",
+        "Stunning scale models",
+        "Interactive shadow studies",
+        "Clear infrastructure layout"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "GIS Import",
+          "desc": "Mapping city terrain coordinates and plotting street grids."
+        },
+        {
+          "step": "2",
+          "title": "Volume design",
+          "desc": "Baking mass volumes of buildings, parks, and pathways."
+        },
+        {
+          "step": "3",
+          "title": "Tuning lights",
+          "desc": "Simulating yearly sun movements to compile shadow studies."
+        },
+        {
+          "step": "4",
+          "title": "Exporting",
+          "desc": "Compiling interactive flyover animations and masterplan maps."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Do you support GIS coordinate maps?",
+          "a": "Yes, we import shapefiles and GIS data to ensure topographic precision."
+        },
+        {
+          "q": "Can you render infrastructure animations?",
+          "a": "Yes, we produce flyover videos showcasing highways, rails, and parks."
+        }
+      ],
+      "icon": "Map"
+    },
+    {
+      "id": "srv-21",
+      "name": "Mobile App Development",
+      "slug": "mobile-app-development",
+      "category": "app-development",
+      "description": "Cross-platform mobile applications for iOS and Android built using React Native or Flutter, optimized for speed, offline synchronization, and native device feature access.",
+      "features": [
+        "React Native apps",
+        "Flutter multi-platform",
+        "Offline sync state",
+        "App store deployment"
+      ],
+      "benefits": [
+        "Sub-second fluid transitions",
+        "Unified single codebase",
+        "Full native hardware access",
+        "Store submission assistance"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "UI/UX Blueprinting",
+          "desc": "Wireframing user journeys and mobile flows.",
+          "image": "/uploads/1786532869511-1784810094075.jpg",
+          "num": "1"
+        },
+        {
+          "step": "2",
+          "title": "Frontend Engineering",
+          "desc": "Coding high-performance components with React Native or Flutter.",
+          "num": "2"
+        },
+        {
+          "step": "3",
+          "title": "API & Offline Sync",
+          "desc": "Setting up state syncing and local SQLite databases.",
+          "num": "3"
+        },
+        {
+          "step": "4",
+          "title": "Store Submission",
+          "desc": "Compilation and publication on App Store & Play Store.",
+          "num": "4"
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Can you build native features like GPS/Bluetooth?",
+          "a": "Yes, we build integrations utilizing native bridge architectures."
+        },
+        {
+          "q": "Do you help publish to the stores?",
+          "a": "Yes, we handle the entire release and review process on developer consoles."
+        }
+      ],
+      "icon": "Smartphone"
+    },
+    {
+      "id": "srv-22",
+      "name": "Headless CMS & Content Management",
+      "slug": "headless-cms",
+      "category": "cms-integration",
+      "description": "Flexible and secure content management systems utilizing headless platforms (Strapi, Sanity, Contentful) to empower teams with block-based real-time editing.",
+      "features": [
+        "Headless CMS integration",
+        "Bespoke schema models",
+        "Dynamic block editing",
+        "Automated static webhooks"
+      ],
+      "benefits": [
+        "Real-time editor previews",
+        "Total frontend design control",
+        "Instant global content updates",
+        "Reduced operational tech costs"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Schema Architecture",
+          "desc": "Modeling content blocks, parameters, and dynamic sections."
+        },
+        {
+          "step": "2",
+          "title": "CMS Syncing",
+          "desc": "Establishing secure Webhook handshakes between CMS and frontend."
+        },
+        {
+          "step": "3",
+          "title": "Dynamic Layouts",
+          "desc": "Building Server Components to render block fields securely."
+        },
+        {
+          "step": "4",
+          "title": "Incremental Rebuilds",
+          "desc": "Setting up Incremental Static Regeneration (ISR) to compile content instantly."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Can non-technical editors use this?",
+          "a": "Yes, we customize clean, self-explanatory editor dashboards."
+        },
+        {
+          "q": "What platforms do you support?",
+          "a": "We integrate Strapi, Sanity, Contentful, and customized local SQL/JSON setups."
+        }
+      ],
+      "icon": "Layers"
+    },
+    {
+      "id": "srv-23",
+      "name": "QA Testing & Performance Audits",
+      "slug": "qa-testing-performance",
+      "category": "qa-testing",
+      "description": "Rigorous quality assurance, automated integration test flows, high-load traffic simulation, and comprehensive speed performance profiling to ensure bug-free operation.",
+      "features": [
+        "Automated Cypress/Playwright tests",
+        "Stress & high-traffic simulation",
+        "Cross-device visual audits",
+        "Security penetration scanning"
+      ],
+      "benefits": [
+        "100% bug-free deployments",
+        "Prevention of runtime regressions",
+        "Optimal Core Web Vitals score",
+        "Secure client transactional flows"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Test Plan Definition",
+          "desc": "Outlining user flows, edge cases, and load stress parameters."
+        },
+        {
+          "step": "2",
+          "title": "Automation Suite",
+          "desc": "Writing integration tests in Playwright or Cypress."
+        },
+        {
+          "step": "3",
+          "title": "Load Testing",
+          "desc": "Simulating high traffic spikes using load-testing tools."
+        },
+        {
+          "step": "4",
+          "title": "Continuous CI/CD Sync",
+          "desc": "Integrating automatic test suites into your deployment runners."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Do you perform manual regression checks?",
+          "a": "Yes, we supplement automated tests with human cross-browser visual audits."
+        },
+        {
+          "q": "Can you optimize old codebases?",
+          "a": "Yes, we analyze performance logs and refactor slow rendering layers."
+        }
+      ],
+      "icon": "CheckSquare"
+    },
+    {
+      "id": "srv-24",
+      "name": "Shopify & Headless Commerce",
+      "slug": "shopify-commerce-headless",
+      "category": "shopify-commerce",
+      "description": "Premium high-converting Shopify Plus storefronts, Custom Shopify headless setups (Hydrogen & Oxygen), subscription setups, and performance optimizations.",
+      "features": [
+        "Bespoke Shopify Plus setups",
+        "Headless commerce integration",
+        "Subscription & recurring payments",
+        "Custom theme development"
+      ],
+      "benefits": [
+        "Sub-second e-commerce page speeds",
+        "High mobile checkout conversion",
+        "Custom pixel & tag analytics",
+        "Seamless third-party ERP integrations"
+      ],
+      "process": [
+        {
+          "step": "1",
+          "title": "Merchant Discovery",
+          "desc": "Defining payment rules, pricing tiers, and ERP connections."
+        },
+        {
+          "step": "2",
+          "title": "Storefront Engineering",
+          "desc": "Building custom Shopify themes or headless Next.js shopping carts."
+        },
+        {
+          "step": "3",
+          "title": "Checkout Tuning",
+          "desc": "Optimizing checkout speeds and configuring customer portals."
+        },
+        {
+          "step": "4",
+          "title": "Launch & Analytics",
+          "desc": "Setting up custom analytics tracking and syncing store catalogs."
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Do you support Shopify custom apps?",
+          "a": "Yes, we build private apps for advanced logic."
+        },
+        {
+          "q": "Is headless commerce faster?",
+          "a": "Yes, headless splits catalog database calls from visual rendering, leading to instant loading."
+        }
+      ],
+      "icon": "ShoppingBag"
+    }
+  ],
+  "projects": [
+    {
+      "id": "prj-1",
+      "name": "Chronos Zero: Cinematic trailer",
+      "slug": "chronos-zero-cinematic",
+      "category": "art-animation",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to make dummy text for Letraset's Body Type sheets. It has survived not only many decades, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised thanks to these sheets and more recently with desktop publishing software like Aldus PageMaker and Microsoft Word including versions of Lorem Ipsum.",
+      "client": "Apex Games Group",
+      "year": "2025",
+      "image": "/images/img1.png",
+      "video": "https://assets.mixkit.co/videos/preview/mixkit-futuristic-subway-station-with-neon-lights-44280-large.mp4",
+      "tags": [
+        "Animation",
+        "3D Art",
+        "Unreal Engine 5",
+        "Rigging"
+      ],
+      "stats": "4.2M Youtube Views"
+    },
+    {
+      "id": "prj-2",
+      "name": "Neo-Tokyo 2099",
+      "slug": "neo-tokyo-2099",
+      "category": "game-development",
+      "description": "An open-world multiplayer action game set in a futuristic cybernetic city. Custom shaders, dynamic lighting, and fully rigged characters.",
+      "client": "Vortex Studios",
+      "year": "2026",
+      "image": "/images/img2.jpg",
+      "video": "https://assets.mixkit.co/videos/preview/mixkit-cyberpunk-looking-man-typing-on-a-futuristic-keyboard-44275-large.mp4",
+      "tags": [
+        "Game Dev",
+        "C++",
+        "Unreal Engine 5",
+        "VFX"
+      ],
+      "stats": "90+ Metacritic Score"
+    },
+    {
+      "id": "prj-3",
+      "name": "Alpha-VR Showroom",
+      "slug": "alpha-vr-showroom",
+      "category": "ar-vr",
+      "description": "Virtual reality interactive showroom built for high-end luxury vehicle visualization, showcasing PBR texturing and custom lighting.",
+      "client": "Apex Motors Corp",
+      "year": "2025",
+      "image": "/images/img3.png",
+      "video": "https://assets.mixkit.co/videos/preview/mixkit-holding-a-vr-controller-interacting-with-a-virtual-world-44279-large.mp4",
+      "tags": [
+        "AR/VR",
+        "Three.js",
+        "PBR Shaders",
+        "WebGL"
+      ],
+      "stats": "45% Engagement Boost"
+    },
+    {
+      "id": "pro-1786451815706",
+      "name": "Scent n Stories",
+      "slug": "SNS-01",
+      "category": "web-development",
+      "description": "test",
+      "client": "Scent n Stories",
+      "year": "2026",
+      "image": "/uploads/1786451781193-ms-signature-removebg-preview.png",
+      "video": "",
+      "tags": [
+        "Perfumes",
+        "Scent n Stories",
+        "E-Commerce"
+      ],
+      "stats": "No 1 Fragnance Brand"
+    }
+  ],
+  "blogs": [],
+  "careers": [],
+  "team": [
+    {
+      "id": "team-1",
+      "name": "Sarah Vance",
+      "role": "Founder & Creative Director",
+      "image": "/images/img4.jpg",
+      "bio": "Former Art Director at Sony Interactive Entertainment. Sarah has over 15 years of digital design, concept illustration, and game production experience.",
+      "social": {
+        "linkedin": "https://linkedin.com/in/sarah-vance",
+        "twitter": "https://twitter.com/sarahvance"
+      }
+    },
+    {
+      "id": "team-2",
+      "name": "Keiji Tanaka",
+      "role": "Lead Systems Architect",
+      "image": "/images/img5.jpg",
+      "bio": "Expert in high-end game engine optimization, network synchronization, and WebGL particle systems. Shipped multiple multiplayer cross-platform titles.",
+      "social": {
+        "linkedin": "https://linkedin.com/in/keiji-tanaka",
+        "twitter": "https://twitter.com/keiji_code"
+      }
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "tst-1",
+      "name": "Julian Thorne",
+      "role": "VP of Product",
+      "company": "Galactic Studios",
+      "content": "LogicForge delivered unmatched environment models and animations for our upcoming action RPG. Their attention to topology, PBR mapping, and rigging saved us months of production time.",
+      "rating": 5
+    },
+    {
+      "id": "tst-2",
+      "name": "Aria Cheng",
+      "role": "Creative Lead",
+      "company": "Evo Car Group",
+      "content": "The WebGL VR showroom developed by LogicForge took our digital product launch to a completely new dimension. Exceptional visual fidelity and flawless scroll performance.",
+      "rating": 5
+    }
+  ],
+  "faqs": [
+    {
+      "id": "faq-1",
+      "question": "What is the typical timeline for an end-to-end 3D project?",
+      "answer": "Timelines vary depending on project complexity. Character design loops typically take 2-4 weeks, while full-cycle game prototyping or corporate interactive websites span 8-16 weeks.",
+      "category": "General"
+    },
+    {
+      "id": "faq-2",
+      "question": "How does the CMS handoff work?",
+      "answer": "Once development is completed, we hand over credentials to the secure Admin Panel dashboard where you can edit services, projects, view contact requests, and customize page contents instantly.",
+      "category": "CMS"
+    }
+  ],
+  "settings": {
+    "siteName": "LogicForge",
+    "logo": "LogicForge",
+    "contactEmail": "hello@logicforge.co",
+    "contactPhone": "+1 (800) 555-LOGIC",
+    "address": "800 Space Park Ave, San Francisco, CA 94103",
+    "socialLinks": {
+      "facebook": "https://facebook.com/logicforge",
+      "twitter": "https://twitter.com/logicforge",
+      "linkedin": "https://linkedin.com/company/logicforge",
+      "instagram": "https://instagram.com/logicforge",
+      "github": "https://github.com/logicforge"
+    },
+    "aboutSummary": "LogicForge is an award-winning global digital production studio blending cutting-edge 3D animations, real-time gaming engines, and premium web development to architect immersive digital realities."
+  },
+  "leads": [],
+  "newsletter": [],
+  "pages": [
+    {
+      "id": "home",
+      "title": "Home Page",
+      "slug": "/",
+      "components": [
+        {
+          "id": "home-hero",
+          "type": "HeroSplitReveal",
+          "title": "Hero Split Reveal Banner",
+          "enabled": true,
+          "content": {
+            "tagline": "LOGICFORGE PRODUCTION",
+            "heading": "We shape immersive realities",
+            "subheading": "LogicForge is a next-generation production studio bridging high-fidelity 3D assets, Unreal Engine architectures, and premium frontend WebGL technologies.",
+            "ctaText1": "Explore Work",
+            "ctaText2": "Get Quote",
+            "images": [
+              {
+                "src": "/images/img1.png",
+                "alt": "Production asset 1"
+              },
+              {
+                "src": "/images/img2.jpg",
+                "alt": "Production asset 2"
+              },
+              {
+                "src": "/images/img3.png",
+                "alt": "Production asset 3"
+              },
+              {
+                "src": "/images/img4.jpg",
+                "alt": "Production asset 4"
+              },
+              {
+                "src": "/images/img5.jpg",
+                "alt": "Production asset 5"
+              },
+              {
+                "src": "/images/img6.png",
+                "alt": "Production asset 6"
+              },
+              {
+                "src": "/images/img7.jpg",
+                "alt": "Production asset 7"
+              },
+              {
+                "src": "/images/img8.png",
+                "alt": "Production asset 8"
+              },
+              {
+                "src": "/images/img9.png",
+                "alt": "Production asset 9"
+              },
+              {
+                "src": "/images/img10.png",
+                "alt": "Production asset 10"
+              },
+              {
+                "src": "/images/img11.png",
+                "alt": "Production asset 11"
+              },
+              {
+                "src": "/images/img12.png",
+                "alt": "Production asset 12"
+              },
+              {
+                "src": "/images/img13.jpg",
+                "alt": "Production asset 13"
+              },
+              {
+                "src": "/images/img14.jpg",
+                "alt": "Production asset 14"
+              },
+              {
+                "src": "/images/img15.jpg",
+                "alt": "Production asset 15"
+              },
+              {
+                "src": "/images/img16.jpg",
+                "alt": "Production asset 16"
+              },
+              {
+                "src": "/images/img17.jpg",
+                "alt": "Production asset 17"
+              },
+              {
+                "src": "/images/img18.jpg",
+                "alt": "Production asset 18"
+              },
+              {
+                "src": "/images/img19.png",
+                "alt": "Production asset 19"
+              },
+              {
+                "src": "/images/img20.png",
+                "alt": "Production asset 20"
+              }
+            ]
+          }
+        },
+        {
+          "id": "home-stats",
+          "type": "StatsBlock",
+          "title": "Stats Indicators Grid",
+          "enabled": true,
+          "content": {
+            "stats": [
+              {
+                "value": "150+",
+                "label": "Shipped Projects"
+              },
+              {
+                "value": "25+",
+                "label": "Creative Awards"
+              },
+              {
+                "value": "98%",
+                "label": "Retention Rate"
+              },
+              {
+                "value": "45+",
+                "label": "Global Artists"
+              }
+            ]
+          }
+        },
+        {
+          "id": "home-gallery",
+          "type": "HeroGallery",
+          "title": "Flipping Gallery Cards",
+          "enabled": true,
+          "content": {
+            "subtitle": "CREATIVE VAULT",
+            "heading": "Exhibition Gallery",
+            "cards": [
+              {
+                "front": "/images/img9.png",
+                "back": "/images/img10.png",
+                "width": "w-[80vw] sm:w-[460px]",
+                "height": "h-[380px] sm:h-[550px]",
+                "num": "(001)"
+              },
+              {
+                "front": "/images/img11.png",
+                "back": "/images/img12.png",
+                "width": "w-[85vw] sm:w-[680px]",
+                "height": "h-[320px] sm:h-[400px]",
+                "num": "(002)"
+              },
+              {
+                "front": "/images/img13.jpg",
+                "back": "/images/img14.jpg",
+                "width": "w-[80vw] sm:w-[460px]",
+                "height": "h-[380px] sm:h-[550px]",
+                "num": "(003)"
+              },
+              {
+                "front": "/images/img15.jpg",
+                "back": "/images/img16.jpg",
+                "width": "w-[85vw] sm:w-[680px]",
+                "height": "h-[320px] sm:h-[400px]",
+                "num": "(004)"
+              },
+              {
+                "front": "/images/img17.jpg",
+                "back": "/images/img18.jpg",
+                "width": "w-[80vw] sm:w-[460px]",
+                "height": "h-[380px] sm:h-[550px]",
+                "num": "(005)"
+              }
+            ]
+          }
+        },
+        {
+          "id": "home-services",
+          "type": "ServicesGrid",
+          "title": "Capabilities Grid",
+          "enabled": true,
+          "content": {
+            "subtitle": "OUR CAPABILITIES",
+            "heading": "We forge digital boundaries",
+            "services": [
+              {
+                "num": "01",
+                "category": "web-development",
+                "name": "Web Development",
+                "title": "High-Performance Web Architectures",
+                "desc": "We engineer bespoke frontend applications utilizing Next.js React Server Components and dynamic WebGL layers. We reject templates, building optimized, accessible, and indexable web platforms that load instantly.",
+                "bulletTitle": "Key Technical Specs",
+                "bullets": [
+                  "Next.js 15 & React Server Components (RSC)",
+                  "Sub-second page speeds and performance index",
+                  "WebGL canvas models & hardware-accelerated shaders",
+                  "Edge CDN routing with automated deployment triggers"
+                ],
+                "ctaText": "Explore Web Portfolio",
+                "ctaLink": "/services/web-development",
+                "accentColor": "var(--color-neon-purple)",
+                "cardBg": "#150a24",
+                "mockupType": "web"
+              },
+              {
+                "num": "02",
+                "category": "app-development",
+                "name": "App Development",
+                "title": "Cross-Platform Mobile Applications",
+                "desc": "Fluid native-feel mobile app production for iOS and Android. Built with React Native or Flutter, our apps provide offline-first state synchronization, local SQLite caching, and native hardware API integrations.",
+                "bulletTitle": "Core Capabilities",
+                "bullets": [
+                  "React Native & Flutter unified codebase",
+                  "Native modules and background workers",
+                  "Local SQLite & database syncing pipelines",
+                  "Automated TestFlight & Google Play submissions"
+                ],
+                "ctaText": "Request App Spec",
+                "ctaLink": "/services/app-development",
+                "accentColor": "var(--color-neon-cyan)",
+                "cardBg": "#110820",
+                "mockupType": "app"
+              },
+              {
+                "num": "03",
+                "category": "cms-integration",
+                "name": "Headless CMS",
+                "title": "Dynamic Content Management",
+                "desc": "Decouple your web experience to empower editing teams. We build secure headless CMS architectures using Strapi or Sanity, integrated via Webhooks to push automated Incremental Static Regeneration (ISR) updates.",
+                "bulletTitle": "CMS Integrations",
+                "bullets": [
+                  "Strapi, Sanity, and Contentful setups",
+                  "Bespoke block schemas and nested page builders",
+                  "On-demand webhook triggers and automated builds",
+                  "Granular admin controls and database migrations"
+                ],
+                "ctaText": "View Headless Demos",
+                "ctaLink": "/services/cms-integration",
+                "accentColor": "var(--color-neon-cyan)",
+                "cardBg": "#180b2c",
+                "mockupType": "cms"
+              },
+              {
+                "num": "04",
+                "category": "qa-testing",
+                "name": "QA & Automation",
+                "title": "Zero-Regression Testing Audits",
+                "desc": "Prevent software downtime and design regressions. We write robust end-to-end integration test suites in Playwright and Cypress, combined with continuous load stress testing and CI/CD pipelines.",
+                "bulletTitle": "Verification Specs",
+                "bullets": [
+                  "Playwright & Cypress E2E automated suites",
+                  "Visual regression checks across viewports",
+                  "High-traffic load profiling and CDN auditing",
+                  "GitHub Actions automated deployment validation"
+                ],
+                "ctaText": "Request QA Audit",
+                "ctaLink": "/services/qa-testing",
+                "accentColor": "var(--color-neon-purple)",
+                "cardBg": "#130922",
+                "mockupType": "qa"
+              },
+              {
+                "num": "05",
+                "category": "shopify-commerce",
+                "name": "Shopify Commerce",
+                "title": "Conversion-Engine Stores",
+                "desc": "Headless e-commerce stores built on Shopify Hydrogen and Oxygen. We create custom storefronts, subscription setups, and payment gateway connections that increase customer checkout conversions.",
+                "bulletTitle": "Shopify Features",
+                "bullets": [
+                  "Headless Shopify commerce (Hydrogen)",
+                  "High-converting bespoke cart components",
+                  "Subscription integrations & ERP synchronization",
+                  "Custom pixel tagging and analytics triggers"
+                ],
+                "ctaText": "Shopify Storefronts",
+                "ctaLink": "/services/shopify-commerce",
+                "accentColor": "var(--color-neon-cyan)",
+                "cardBg": "#0e0618",
+                "mockupType": "shopify"
+              }
+            ]
+          }
+        },
+        {
+          "id": "home-facts",
+          "type": "KeyFactsReveal",
+          "title": "Studio Key Facts Column Reveal",
+          "enabled": true,
+          "content": {
+            "subtitle": "WHO WE ARE",
+            "heading": "Studio Metrics & Showcase",
+            "layer1Title": "WHO WE ARE",
+            "layer3Title": "Key Metrics / Showcase",
+            "facts": [
+              {
+                "title": "Awwwards Aesthetics",
+                "desc": "We develop bespoke high-fidelity creative layouts that captivate at first sight.",
+                "icon": "Trophy"
+              },
+              {
+                "title": "Modular Pipeline",
+                "desc": "Dynamic scaling of development sprints using industry-compliant tech artists.",
+                "icon": "Users"
+              },
+              {
+                "title": "Enterprise Quality",
+                "desc": "Clean quad topologies, robust network netcodes, and sub-second web indexing.",
+                "icon": "ShieldCheck"
+              },
+              {
+                "title": "24/7 AI Sync",
+                "desc": "A live chatbot synchronized directly with local services and settings databases.",
+                "icon": "MessageSquare"
+              }
+            ],
+            "projects": [
+              {
+                "title": "Scent n Stories ",
+                "desc": "Developed a premium e-commerce website for a leading perfume brand, featuring elegant UI, smooth GSAP animations, responsive design, and an engaging product-focused experience.",
+                "date": "E-Commerce",
+                "image": "/images/img1.png"
+              },
+              {
+                "title": "Neon Odyssey",
+                "desc": "AAA cinematic character designs, high-poly assets, and custom GLSL shader layers.",
+                "date": "DECEMBER 2025",
+                "image": "/images/img2.jpg"
+              },
+              {
+                "title": "Ethereal Space",
+                "desc": "Next-gen architectural rendering and WebGL browser optimization pipelines.",
+                "date": "FEBRUARY 2026",
+                "image": "/images/img3.png"
+              }
+            ]
+          }
+        },
+        {
+          "id": "home-marquee",
+          "type": "TechMarquee",
+          "title": "Tech Stack Infinite Marquee",
+          "enabled": true,
+          "content": {}
+        },
+        {
+          "id": "home-portfolio",
+          "type": "HorizontalGallery",
+          "title": "Portfolio Timeline",
+          "enabled": true,
+          "content": {
+            "subtitle": "CREATIVE WORKS",
+            "heading": "Featured Projects Showcase"
+          }
+        },
+        {
+          "id": "home-sectors",
+          "type": "IndustriesServed",
+          "title": "Target Industries Grid",
+          "enabled": true,
+          "content": {
+            "subtitle": "TARGET SECTORS",
+            "heading": "Industries We Elevate",
+            "industries": [
+              {
+                "name": "Game Studio Pipelines",
+                "desc": "AAA character retopology, rigged models, and custom VFX mapping."
+              },
+              {
+                "name": "Interactive Marketing",
+                "desc": "Sleek WebGL marketing interfaces, gradient meshes, and game loops."
+              },
+              {
+                "name": "Virtual Architecture",
+                "desc": "Bespoke high-polygon interior simulations and master plans."
+              },
+              {
+                "name": "Industrial AR/VR",
+                "desc": "Metaverse twins and immersive training catalog experiences."
+              }
+            ]
+          }
+        },
+        {
+          "id": "home-art",
+          "type": "ArtisticReveal",
+          "title": "Artistic Visual Reveal",
+          "enabled": true,
+          "content": {
+            "word1": "ARTISTIC",
+            "word2": "EXPRESSIONS",
+            "imageUrl": "/images/img7.jpg"
+          }
+        },
+        {
+          "id": "home-testimonials",
+          "type": "CurvedCarousel3D",
+          "title": "3D Cylinder Testimonials",
+          "enabled": true,
+          "content": {
+            "subtitle": "TESTIMONIALS",
+            "heading": "What our co-production partners say"
+          }
+        },
+        {
+          "id": "home-contact",
+          "type": "HomeContact",
+          "title": "Contact Portal Form",
+          "enabled": true,
+          "content": {
+            "subtitle": "TRANSMISSION PORTAL",
+            "heading": "Commence Digital Query"
+          }
+        }
+      ]
+    },
+    {
+      "id": "about",
+      "title": "About Us Page",
+      "slug": "/about",
+      "components": [
+        {
+          "id": "about-hero",
+          "type": "AboutHero",
+          "title": "About Story Hero Banner",
+          "enabled": true,
+          "content": {
+            "tagline": "OUR STORY",
+            "heading": "Architecting virtual futures",
+            "description": "At LogicForge, we merge high-end 3D artistry with sophisticated engine programming. We believe that digital experiences shouldn’t just function—they should immerse."
+          }
+        },
+        {
+          "id": "about-values",
+          "type": "AboutValues",
+          "title": "Mission & Vision Cards Block",
+          "enabled": true,
+          "content": {
+            "heading": "Our Core Values",
+            "missionTitle": "Our Mission",
+            "missionDesc": "To provide enterprise game studios, corporations, and startups with next-generation digital media assets, interactive 3D WebGL experiences, and optimized game engine pipelines that redefine the visual landscape.",
+            "visionTitle": "Our Vision",
+            "visionDesc": "To bridge the gap between creative visual artistry and computer engineering, developing a cohesive ecosystem where spatial compute, gaming assets, and custom frontend systems mesh flawlessly.",
+            "values": [
+              {
+                "title": "Visual Fidelity",
+                "desc": "We push limits in lighting, PBR layering, clean topologies, and responsive rendering frames.",
+                "icon": "Trophy"
+              },
+              {
+                "title": "Engineering Rigor",
+                "desc": "We optimize CPU draws, implement robust netcode replications, and compile strict code architectures.",
+                "icon": "ShieldCheck"
+              },
+              {
+                "title": "Creative Freedom",
+                "desc": "We empower global digital artists and developers to execute design prototypes without barriers.",
+                "icon": "Heart"
+              }
+            ],
+            "timeline": [
+              {
+                "year": "2020",
+                "title": "Studio Inception",
+                "desc": "LogicForge founded with a core team of 5 designers, working on freelance character sculpts."
+              },
+              {
+                "year": "2022",
+                "title": "Game Engine Integration",
+                "desc": "Opened our game dev branch specializing in Unreal Engine 5 multiplayer netcodes."
+              },
+              {
+                "year": "2024",
+                "title": "Creative WebGL launch",
+                "desc": "Introduced 3D browser capabilities, winning our first Awwwards Honorable Mention."
+              },
+              {
+                "year": "2026",
+                "title": "Enterprise scale",
+                "desc": "Scaling to 45+ global artists, providing full-cycle digital production pipelines."
+              }
+            ],
+            "team": [
+              {
+                "name": "Sarah Vance",
+                "role": "Founder & Creative Director",
+                "bio": "Former Art Director at Sony Interactive Entertainment. Sarah has over 15 years of digital design, concept illustration, and game production experience.",
+                "img": "/images/img4.jpg",
+                "linked": "https://linkedin.com"
+              },
+              {
+                "name": "Keiji Tanaka",
+                "role": "Lead Systems Architect",
+                "bio": "Expert in high-end game engine optimization, network synchronization, and WebGL particle systems. Shipped multiple multiplayer cross-platform titles.",
+                "img": "/images/img5.jpg",
+                "linked": "https://linkedin.com"
+              }
+            ]
+          }
+        },
+        {
+          "id": "about-reveal",
+          "type": "AboutReverseReveal",
+          "title": "Reverse Scroll Image Zoom Reveal",
+          "enabled": true,
+          "content": {
+            "image": "/images/img6.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": "projects-page",
+      "title": "Projects Page",
+      "slug": "/projects",
+      "components": [
+        {
+          "id": "projects-hero",
+          "type": "ProjectsHero",
+          "title": "Projects Page Banner",
+          "enabled": true,
+          "content": {
+            "tagline": "OUR WORK",
+            "heading": "Your Vision Realized.",
+            "description": "This page showcases a clean, professional layout designed to build trust through transparency and proven results. We shape immersive realities with highest creative fidelity."
+          }
+        }
+      ]
+    },
+    {
+      "id": "contact",
+      "title": "Contact Page",
+      "slug": "/contact",
+      "components": [
+        {
+          "id": "contact-hero",
+          "type": "ContactHero",
+          "title": "Contact Story Hero Banner",
+          "enabled": true,
+          "content": {
+            "tagline": "CONTACT HUB",
+            "heading": "Co-create with us",
+            "description": "Submit design queries, request project quote estimates, or book an interactive 3D pipeline consultation with our systems architects.",
+            "officeTitle1": "Studio Offices",
+            "officeAddr1": "San Francisco Office:\n800 Space Park Ave, San Francisco, CA 94103\n\nTokyo Studio:\n2-Chrome-11 Roppongi, Minato City, Tokyo 106-6108",
+            "officeTitle2": "Inquiry Channels",
+            "officeAddr2": "Support Email:\nhello@logicforge.co\n\nHotline Phone:\n+1 (800) 555-LOGIC (Mon-Fri)",
+            "officeTitle3": "Business Hours",
+            "hours": [
+              {
+                "days": "Monday - Friday",
+                "hours": "09:00 AM - 06:00 PM (PST)"
+              },
+              {
+                "days": "Saturday",
+                "hours": "10:00 AM - 04:00 PM (PST)"
+              },
+              {
+                "days": "Sunday",
+                "hours": "Closed"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "services",
+      "title": "Services Page",
+      "slug": "/services",
+      "components": [
+        {
+          "id": "services-hero",
+          "type": "ServicesHero",
+          "title": "Services Story Hero Banner",
+          "enabled": true,
+          "content": {
+            "tagline": "PRODUCTION HUB",
+            "heading": "Creative Services Architecture",
+            "description": "We architect digital media assets and program robust interactive platforms. Select a capability category below to view detailed production processes.",
+            "categories": [
+              {
+                "id": "art-animation",
+                "name": "Art & Animation",
+                "icon": "Palette",
+                "desc": "Character modeling, high-poly ZBrush sculpting, concept sketching, and ARKit blendshape rigs.",
+                "services": [
+                  "Character Design",
+                  "Environment Art",
+                  "Concept Art",
+                  "Cinematic Animation"
+                ]
+              },
+              {
+                "id": "game-development",
+                "name": "Game Development",
+                "icon": "Gamepad2",
+                "desc": "Full-cycle production using Unreal Engine 5 & Unity. Replicated multiplayer networks and GPU optimizations.",
+                "services": [
+                  "Unreal Engine 5",
+                  "Unity 3D Prototyping",
+                  "Multiplayer Netcode",
+                  "Shader Optimizations"
+                ]
+              },
+              {
+                "id": "web-development",
+                "name": "Web Development",
+                "icon": "Globe",
+                "desc": "Premium Next.js architectures, static/dynamic deployments, customized content dashboards, and interactive WebGL canvas frames.",
+                "services": [
+                  "Corporate Applications",
+                  "Interactive WebGL Portals",
+                  "Local Database CMS",
+                  "SEO Speed Tuning"
+                ]
+              },
+              {
+                "id": "app-development",
+                "name": "App Development",
+                "icon": "Smartphone",
+                "desc": "Bespoke native and cross-platform mobile apps for iOS and Android built on Flutter or React Native, optimized for speed and device features.",
+                "services": [
+                  "React Native Apps",
+                  "Flutter Multi-Platform",
+                  "Offline Sync Systems",
+                  "Store Deployments"
+                ]
+              },
+              {
+                "id": "cms-integration",
+                "name": "CMS & Database Solutions",
+                "icon": "Layers",
+                "desc": "Tailored headless CMS architectures and database sync pipelines to empower editorial control and dynamic content updates.",
+                "services": [
+                  "Headless CMS Integrations",
+                  "Bespoke Schema Models",
+                  "Dynamic Block Editing",
+                  "Static Rebuild Webhooks"
+                ]
+              },
+              {
+                "id": "qa-testing",
+                "name": "QA & Automated Testing",
+                "icon": "CheckSquare",
+                "desc": "Comprehensive manual audits and automated Cypress/Playwright integration tests to ensure zero regressions.",
+                "services": [
+                  "Automated End-to-End Tests",
+                  "Manual QA Audits",
+                  "Load & Performance Tuning",
+                  "CI/CD Test Sync"
+                ]
+              },
+              {
+                "id": "shopify-commerce",
+                "name": "Shopify & E-Commerce",
+                "icon": "ShoppingBag",
+                "desc": "High-converting custom Shopify Plus themes, Hydrogen headless e-commerce setups, and payment gateway connections.",
+                "services": [
+                  "Shopify Plus Themes",
+                  "Headless Hydrogen commerce",
+                  "Subscription Gateways",
+                  "Conversion Tuning"
+                ]
+              },
+              {
+                "id": "ar-vr",
+                "name": "AR / VR & Metaverse",
+                "icon": "Smartphone",
+                "desc": "Virtual catalogs, 3D retail showrooms, digital twins, and immersive virtual avatar engines.",
+                "services": [
+                  "XR Applications",
+                  "WebGL Showrooms",
+                  "Spatial Compute Renders",
+                  "Metaverse Avatars"
+                ]
+              },
+              {
+                "id": "arch-viz",
+                "name": "Architectural Visualization",
+                "icon": "Landmark",
+                "desc": "Photorealistic walkthroughs, interior/exterior lighting renders, master plans, and custom model assets.",
+                "services": [
+                  "Interior Fly-throughs",
+                  "Exterior Lighting",
+                  "Bespoke Asset Pipelines",
+                  "Master Plans"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
