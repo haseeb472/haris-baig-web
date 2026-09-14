@@ -1228,6 +1228,7 @@ export default function AdminDashboard() {
                               <h4 className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Available Modules</h4>
                               <div data-lenis-prevent className="flex flex-col gap-1 max-h-48 overflow-y-auto scrollbar-none">
                                 {[
+                                  'HeroSlider',
                                   'HeroSplitReveal',
                                   'StatsBlock',
                                   'HeroGallery',

@@ -1414,95 +1414,67 @@
       "components": [
         {
           "id": "home-hero",
-          "type": "HeroSplitReveal",
-          "title": "Hero Split Reveal Banner",
+          "type": "HeroSlider",
+          "title": "Hero Showcase Slider",
           "enabled": true,
           "content": {
-            "tagline": "LOGICFORGE PRODUCTION",
-            "heading": "We shape immersive realities",
-            "subheading": "LogicForge is a next-generation production studio bridging high-fidelity 3D assets, Unreal Engine architectures, and premium frontend WebGL technologies.",
-            "ctaText1": "Explore Work",
-            "ctaText2": "Get Quote",
-            "images": [
+            "autoPlayInterval": 6000,
+            "slides": [
               {
-                "src": "/images/img1.png",
-                "alt": "Production asset 1"
+                "id": "web-development",
+                "category": "Web Development",
+                "badge": "Available for Work",
+                "title": "Transform your ideas into digital success with us!",
+                "highlightWords": ["digital success"],
+                "description": "We're your partner in product design, website creation, and high-performance WebGL architectures for every stage of your business.",
+                "primaryBtnText": "Services",
+                "primaryBtnLink": "/services/web-development",
+                "secondaryBtnText": "Our work",
+                "secondaryBtnLink": "/projects",
+                "image": "/images/hero/hero1.png",
+                "imageAlt": "Web Development Background"
               },
               {
-                "src": "/images/img2.jpg",
-                "alt": "Production asset 2"
+                "id": "3d-art-work",
+                "category": "3D Art Work",
+                "badge": "Available for Work",
+                "title": "Crafting Iconic 3D Art & Character Production",
+                "highlightWords": ["3D Art"],
+                "description": "AAA character retopology, high-poly asset modeling, procedural texturing, and expressive cinematic animations tailored for next-gen worlds.",
+                "primaryBtnText": "Services",
+                "primaryBtnLink": "/services/character-dev",
+                "secondaryBtnText": "Our work",
+                "secondaryBtnLink": "/projects",
+                "image": "/images/hero/hero2.png",
+                "imageAlt": "3D Art Work Background"
               },
               {
-                "src": "/images/img3.png",
-                "alt": "Production asset 3"
+                "id": "mobile-app",
+                "category": "Mobile App Development",
+                "badge": "Available for Work",
+                "title": "Engineered For Touch: High-Performance Mobile Apps",
+                "highlightWords": ["Mobile Apps"],
+                "description": "Fluid cross-platform and native mobile applications with offline-first synchronization, buttery 120fps micro-interactions, and enterprise-grade cloud backends.",
+                "primaryBtnText": "Services",
+                "primaryBtnLink": "/services/ar-vr",
+                "secondaryBtnText": "Our work",
+                "secondaryBtnLink": "/projects",
+                "image": "/images/hero/hero3.png",
+                "imageAlt": "Mobile App Development Background"
               },
               {
-                "src": "/images/img4.jpg",
-                "alt": "Production asset 4"
-              },
-              {
-                "src": "/images/img5.jpg",
-                "alt": "Production asset 5"
-              },
-              {
-                "src": "/images/img6.png",
-                "alt": "Production asset 6"
-              },
-              {
-                "src": "/images/img7.jpg",
-                "alt": "Production asset 7"
-              },
-              {
-                "src": "/images/img8.png",
-                "alt": "Production asset 8"
-              },
-              {
-                "src": "/images/img9.png",
-                "alt": "Production asset 9"
-              },
-              {
-                "src": "/images/img10.png",
-                "alt": "Production asset 10"
-              },
-              {
-                "src": "/images/img11.png",
-                "alt": "Production asset 11"
-              },
-              {
-                "src": "/images/img12.png",
-                "alt": "Production asset 12"
-              },
-              {
-                "src": "/images/img13.jpg",
-                "alt": "Production asset 13"
-              },
-              {
-                "src": "/images/img14.jpg",
-                "alt": "Production asset 14"
-              },
-              {
-                "src": "/images/img15.jpg",
-                "alt": "Production asset 15"
-              },
-              {
-                "src": "/images/img16.jpg",
-                "alt": "Production asset 16"
-              },
-              {
-                "src": "/images/img17.jpg",
-                "alt": "Production asset 17"
-              },
-              {
-                "src": "/images/img18.jpg",
-                "alt": "Production asset 18"
-              },
-              {
-                "src": "/images/img19.png",
-                "alt": "Production asset 19"
-              },
-              {
-                "src": "/images/img20.png",
-                "alt": "Production asset 20"
+                "id": "game-development",
+                "category": "Game Development",
+                "badge": "Available for Work",
+                "title": "Next-Gen Game Worlds Built With AAA Fidelity",
+                "highlightWords": ["Game Worlds"],
+                "description": "Full-cycle game production spanning gameplay mechanics, dynamic physics, multiplayer networking, and cinematic shader pipelines across Unreal Engine & Unity.",
+                "primaryBtnText": "Services",
+                "primaryBtnLink": "/services/game-development",
+                "secondaryBtnText": "Our work",
+                "secondaryBtnLink": "/projects",
+                "image": "/images/hero/hero4.jpg",
+                "imageAlt": "Game Development Background"
               }
             ]
           }

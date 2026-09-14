@@ -7,6 +7,7 @@ import TechMarquee from '@/components/web/TechMarquee';
 import HomeContact from '@/components/web/HomeContact';
 import HeroGallery from '@/components/web/HeroGallery';
 import HeroSplitReveal from '@/components/web/HeroSplitReveal';
+import HeroSlider from '@/components/web/HeroSlider';
 import KeyFactsReveal from '@/components/web/KeyFactsReveal';
 import SplitText from '@/components/web/SplitText';
 import CurvedCarousel3D from '@/components/web/CurvedCarousel3D';
@@ -47,6 +48,9 @@ export default function HomePage() {
         switch (comp.type) {
           case 'HeroSplitReveal':
             return <HeroSplitReveal key={comp.id} content={comp.content} />;
+          
+          case 'HeroSlider':
+            return <HeroSlider key={comp.id} content={comp.content} />;
           
           case 'StatsBlock':
             return <StatsBlock key={comp.id} content={comp.content} />;
