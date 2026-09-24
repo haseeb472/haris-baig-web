@@ -7,12 +7,16 @@ import {
   updateItem,
   deleteItem,
   updateSettings,
+  updateHeader,
+  updateFooter,
   DatabaseSchema
 } from '@/lib/cms';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
+    const { searchParams } = request.nextUrl;
     const table = searchParams.get('table') as keyof DatabaseSchema | null;
 
     if (!table) {
@@ -20,6 +24,10 @@ export async function GET(request: NextRequest) {
     }
 
     const data = getItems(table);
+    if (data === undefined) {
+      return NextResponse.json({ error: `Table '${table}' not found` }, { status: 404 });
+    }
+
     return NextResponse.json(data);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -28,7 +36,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
+    const { searchParams } = request.nextUrl;
     const table = searchParams.get('table') as keyof Omit<DatabaseSchema, 'settings' | 'newsletter'> | null;
     const body = await request.json();
 
@@ -51,7 +59,7 @@ export async function POST(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
+    const { searchParams } = request.nextUrl;
     const table = searchParams.get('table') as keyof DatabaseSchema | null;
     const id = searchParams.get('id');
     const body = await request.json();
@@ -63,6 +71,16 @@ export async function PUT(request: NextRequest) {
     if (table === 'settings') {
       const updatedSettings = updateSettings(body);
       return NextResponse.json(updatedSettings);
+    }
+
+    if (table === 'header') {
+      const updatedHeader = updateHeader(body);
+      return NextResponse.json(updatedHeader);
+    }
+
+    if (table === 'footer') {
+      const updatedFooter = updateFooter(body);
+      return NextResponse.json(updatedFooter);
     }
 
     if (!id) {
@@ -82,7 +100,7 @@ export async function PUT(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
+    const { searchParams } = request.nextUrl;
     const table = searchParams.get('table') as keyof DatabaseSchema | null;
     const id = searchParams.get('id');
 

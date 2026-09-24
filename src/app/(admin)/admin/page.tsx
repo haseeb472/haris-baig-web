@@ -20,12 +20,14 @@ import {
   Lock,
   LogOut,
   Layers,
-  Upload
+  Upload,
+  PanelTop,
+  PanelBottom
 } from 'lucide-react';
-import { Service, Project, Lead, SiteSettings, DatabaseSchema } from '@/lib/cms';
+import { Service, Project, Lead, SiteSettings, DatabaseSchema, HeaderSettings, FooterSettings, getDefaultHeader, getDefaultFooter } from '@/lib/cms-types';
 import confetti from 'canvas-confetti';
 
-type Tab = 'dashboard' | 'services' | 'projects' | 'leads' | 'settings' | 'newsletter' | 'pages';
+type Tab = 'dashboard' | 'services' | 'projects' | 'leads' | 'settings' | 'newsletter' | 'pages' | 'header' | 'footer';
 
 interface ImageUploadProps {
   value: string;
@@ -249,6 +251,8 @@ export default function AdminDashboard() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [newsletter, setNewsletter] = useState<{ email: string; date: string }[]>([]);
   const [settings, setSettings] = useState<SiteSettings | null>(null);
+  const [headerSettings, setHeaderSettings] = useState<HeaderSettings | null>(null);
+  const [footerSettings, setFooterSettings] = useState<FooterSettings | null>(null);
 
   // Pages Builder States
   const [pages, setPages] = useState<any[]>([]);
@@ -269,19 +273,42 @@ export default function AdminDashboard() {
 
   const fetchData = async () => {
     setLoading(true);
+    setError('');
     try {
-      // Load all tables
-      const resServices = await fetch('/api/cms?table=services');
-      const resProjects = await fetch('/api/cms?table=projects');
-      const resLeads = await fetch('/api/cms?table=leads');
-      const resNews = await fetch('/api/cms?table=newsletter');
-      const resPages = await fetch('/api/cms?table=pages');
+      // Load all tables in parallel
+      const [resServices, resProjects, resLeads, resNews, resPages, resSet, resHeader, resFooter] = await Promise.all([
+        fetch('/api/cms?table=services'),
+        fetch('/api/cms?table=projects'),
+        fetch('/api/cms?table=leads'),
+        fetch('/api/cms?table=newsletter'),
+        fetch('/api/cms?table=pages'),
+        fetch('/api/cms?table=settings'),
+        fetch('/api/cms?table=header'),
+        fetch('/api/cms?table=footer'),
+      ]);
+
+      const failedEndpoints: string[] = [];
+      if (!resServices.ok) failedEndpoints.push(`services (${resServices.status})`);
+      if (!resProjects.ok) failedEndpoints.push(`projects (${resProjects.status})`);
+      if (!resLeads.ok) failedEndpoints.push(`leads (${resLeads.status})`);
+      if (!resNews.ok) failedEndpoints.push(`newsletter (${resNews.status})`);
+      if (!resPages.ok) failedEndpoints.push(`pages (${resPages.status})`);
+      if (!resSet.ok) failedEndpoints.push(`settings (${resSet.status})`);
+      if (!resHeader.ok) failedEndpoints.push(`header (${resHeader.status})`);
+      if (!resFooter.ok) failedEndpoints.push(`footer (${resFooter.status})`);
+
+      if (failedEndpoints.length > 0) {
+        throw new Error(`Failed to fetch CMS table(s): ${failedEndpoints.join(', ')}`);
+      }
       
       const dbServices = await resServices.json();
       const dbProjects = await resProjects.json();
       const dbLeads = await resLeads.json();
       const dbNews = await resNews.json();
       const dbPages = await resPages.json();
+      const dbSet = await resSet.json();
+      const dbHeader = await resHeader.json();
+      const dbFooter = await resFooter.json();
 
       setServices(dbServices || []);
       setProjects(dbProjects || []);
@@ -289,15 +316,13 @@ export default function AdminDashboard() {
       setLeads((dbLeads || []).sort((a: Lead, b: Lead) => new Date(b.date).getTime() - new Date(a.date).getTime()));
       setNewsletter(dbNews || []);
       setPages(dbPages || []);
-      
-      // Settings load
-      const resSet = await fetch('/api/cms?table=settings');
-      const dbSet = await resSet.json();
       setSettings(dbSet);
+      setHeaderSettings(dbHeader || getDefaultHeader());
+      setFooterSettings(dbFooter || getDefaultFooter());
 
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      setError('Failed to fetch CMS tables.');
+      setError(err?.message || 'Failed to fetch CMS tables.');
     } finally {
       setLoading(false);
     }
@@ -322,6 +347,46 @@ export default function AdminDashboard() {
       }
     } catch (err) {
       setError('Save error.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleSaveHeader = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!headerSettings) return;
+    setSaving(true);
+    try {
+      const res = await fetch('/api/cms?table=header', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(headerSettings)
+      });
+      if (res.ok) {
+        confetti({ particleCount: 30, spread: 40 });
+      }
+    } catch (err) {
+      setError('Failed to save header configuration.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleSaveFooter = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!footerSettings) return;
+    setSaving(true);
+    try {
+      const res = await fetch('/api/cms?table=footer', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(footerSettings)
+      });
+      if (res.ok) {
+        confetti({ particleCount: 30, spread: 40 });
+      }
+    } catch (err) {
+      setError('Failed to save footer configuration.');
     } finally {
       setSaving(false);
     }
@@ -447,7 +512,18 @@ export default function AdminDashboard() {
       type,
       title: type.replace(/([A-Z])/g, ' $1').trim(),
       enabled: true,
-      content: {}
+      content: (type === 'HeroBanner' || type === 'HeroSlider') ? {
+        badge: 'Available for Work',
+        category: 'Web Development',
+        title: 'Transform your ideas into digital success with us!',
+        description: "We're your partner in product design, website creation, and high-performance WebGL architectures.",
+        primaryBtnText: 'Services',
+        primaryBtnLink: '/services',
+        secondaryBtnText: 'Our work',
+        secondaryBtnLink: '/projects',
+        image: '/images/hero/hero01.jpg',
+        imageAlt: 'Hero Banner Image'
+      } : {}
     };
 
     updatedPages[pageIndex].components.push(newComp);
@@ -691,13 +767,15 @@ export default function AdminDashboard() {
           <span className="p-2 bg-gradient-to-r from-neon-purple to-neon-blue text-white rounded-lg font-space font-bold text-xs">
             CMS
           </span>
-          <span className="font-space font-bold text-sm tracking-wider text-white">LogicForge Admin</span>
+          <span className="font-space font-bold text-sm tracking-wider text-white">Fourth Pixel Admin</span>
         </div>
 
         <nav className="flex-1 flex flex-row lg:flex-col gap-1 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0 scrollbar-none">
           {[
             { id: 'dashboard', name: 'Dashboard', icon: LayoutDashboard },
             { id: 'pages', name: 'Page Builder', icon: Layers },
+            { id: 'header', name: 'Header / Nav', icon: PanelTop },
+            { id: 'footer', name: 'Footer', icon: PanelBottom },
             { id: 'projects', name: 'Projects', icon: Palette },
             { id: 'services', name: 'Services', icon: Gamepad2 },
             { id: 'leads', name: 'Leads Inbox', icon: Inbox },
@@ -1228,6 +1306,7 @@ export default function AdminDashboard() {
                               <h4 className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Available Modules</h4>
                               <div data-lenis-prevent className="flex flex-col gap-1 max-h-48 overflow-y-auto scrollbar-none">
                                 {[
+                                  'HeroBanner',
                                   'HeroSlider',
                                   'HeroSplitReveal',
                                   'StatsBlock',
@@ -1631,6 +1710,796 @@ export default function AdminDashboard() {
                   >
                     <Save className="w-4 h-4" />
                     {saving ? 'Saving Site settings...' : 'Save Configuration'}
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {/* HEADER SETTINGS TAB */}
+            {activeTab === 'header' && headerSettings && (
+              <form onSubmit={handleSaveHeader} className="space-y-8">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <div>
+                    <h1 className="text-3xl font-space font-black text-white uppercase">Header & Navigation</h1>
+                    <p className="text-gray-500 text-xs mt-1">Configure navbar branding, navigation links, request quote CTA, mega menu services, and mobile drawer.</p>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={saving}
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue hover:opacity-90 text-white font-space font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-neon-purple/20 cursor-pointer self-start md:self-auto"
+                  >
+                    <Save className="w-4 h-4" />
+                    {saving ? 'Saving...' : 'Save Header'}
+                  </button>
+                </div>
+
+                {/* Section 1: Branding & Call To Action */}
+                <div className="p-6 md:p-8 rounded-3xl glass-panel border border-white/5 space-y-6">
+                  <h2 className="font-space font-bold text-base text-white uppercase tracking-wider flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-neon-cyan" />
+                    Brand Identity & Call-To-Action Button
+                  </h2>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <ImageUpload
+                        value={headerSettings.logo || ''}
+                        onChange={(url) => setHeaderSettings({ ...headerSettings, logo: url })}
+                        label="Navbar Brand Logo"
+                      />
+                    </div>
+                    <div className="space-y-4">
+                      <div className="space-y-1">
+                        <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Logo Alt / Brand Name</label>
+                        <input
+                          type="text"
+                          value={headerSettings.logoAlt || ''}
+                          onChange={(e) => setHeaderSettings({ ...headerSettings, logoAlt: e.target.value })}
+                          className="w-full text-xs bg-white/5 border border-white/10 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-neon-purple transition-all"
+                          placeholder="Fourth Pixel"
+                        />
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                          <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">CTA Button Label</label>
+                          <input
+                            type="text"
+                            value={headerSettings.ctaText || ''}
+                            onChange={(e) => setHeaderSettings({ ...headerSettings, ctaText: e.target.value })}
+                            className="w-full text-xs bg-white/5 border border-white/10 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-neon-purple transition-all"
+                            placeholder="Request Quote"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">CTA Target URL</label>
+                          <input
+                            type="text"
+                            value={headerSettings.ctaLink || ''}
+                            onChange={(e) => setHeaderSettings({ ...headerSettings, ctaLink: e.target.value })}
+                            className="w-full text-xs bg-white/5 border border-white/10 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-neon-purple transition-all"
+                            placeholder="/contact?tab=quote"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Section 2: Main Navigation Bar Links */}
+                <div className="p-6 md:p-8 rounded-3xl glass-panel border border-white/5 space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className="font-space font-bold text-base text-white uppercase tracking-wider flex items-center gap-2">
+                        <PanelTop className="w-4 h-4 text-neon-purple" />
+                        Top Navigation Menu Links
+                      </h2>
+                      <p className="text-gray-500 text-xs mt-1">Links displayed horizontally on desktop and inside the mobile drawer.</p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setHeaderSettings({
+                          ...headerSettings,
+                          navLinks: [...(headerSettings.navLinks || []), { name: 'New Link', href: '/' }]
+                        });
+                      }}
+                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      Add Link
+                    </button>
+                  </div>
+
+                  <div className="space-y-3">
+                    {(headerSettings.navLinks || []).map((link, idx) => (
+                      <div key={idx} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 p-3.5 rounded-xl bg-white/[0.02] border border-white/5">
+                        <span className="text-gray-500 text-xs font-mono font-bold w-6">{idx + 1}.</span>
+                        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <input
+                            type="text"
+                            value={link.name}
+                            onChange={(e) => {
+                              const updated = [...headerSettings.navLinks];
+                              updated[idx] = { ...updated[idx], name: e.target.value };
+                              setHeaderSettings({ ...headerSettings, navLinks: updated });
+                            }}
+                            placeholder="Link Label (e.g. Services)"
+                            className="w-full text-xs bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-neon-purple"
+                          />
+                          <input
+                            type="text"
+                            value={link.href}
+                            onChange={(e) => {
+                              const updated = [...headerSettings.navLinks];
+                              updated[idx] = { ...updated[idx], href: e.target.value };
+                              setHeaderSettings({ ...headerSettings, navLinks: updated });
+                            }}
+                            placeholder="Destination URL (/services, /about...)"
+                            className="w-full text-xs bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-neon-purple font-mono"
+                          />
+                        </div>
+                        <div className="flex items-center gap-2 self-end sm:self-center">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = headerSettings.navLinks.filter((_, i) => i !== idx);
+                              setHeaderSettings({ ...headerSettings, navLinks: updated });
+                            }}
+                            className="p-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 cursor-pointer"
+                            title="Remove Link"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Section 3: Mega Menu Columns */}
+                <div className="p-6 md:p-8 rounded-3xl glass-panel border border-white/5 space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className="font-space font-bold text-base text-white uppercase tracking-wider flex items-center gap-2">
+                        <Layers className="w-4 h-4 text-neon-cyan" />
+                        Services Mega Menu Columns & Sub-Services
+                      </h2>
+                      <p className="text-gray-500 text-xs mt-1">Configure the categorized dropdown menu that appears when users hover over Services.</p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setHeaderSettings({
+                          ...headerSettings,
+                          megaMenuColumns: [
+                            ...(headerSettings.megaMenuColumns || []),
+                            {
+                              title: 'New Category',
+                              categoryHref: '/services',
+                              iconName: 'Sparkles',
+                              links: [{ title: 'Service Example', href: '/services' }]
+                            }
+                          ]
+                        });
+                      }}
+                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      Add Column
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                    {(headerSettings.megaMenuColumns || []).map((col, colIdx) => (
+                      <div key={colIdx} className="p-5 rounded-2xl bg-white/[0.02] border border-white/5 space-y-4">
+                        <div className="flex items-center justify-between pb-3 border-b border-white/5">
+                          <span className="text-xs font-space font-bold text-neon-purple uppercase">Column #{colIdx + 1}</span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = headerSettings.megaMenuColumns?.filter((_, i) => i !== colIdx);
+                              setHeaderSettings({ ...headerSettings, megaMenuColumns: updated });
+                            }}
+                            className="p-1.5 rounded bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20 cursor-pointer"
+                            title="Remove Column"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                          <div className="sm:col-span-1 space-y-1">
+                            <label className="text-[9px] text-gray-400 uppercase font-bold">Category Title</label>
+                            <input
+                              type="text"
+                              value={col.title}
+                              onChange={(e) => {
+                                const cols = [...(headerSettings.megaMenuColumns || [])];
+                                cols[colIdx] = { ...cols[colIdx], title: e.target.value };
+                                setHeaderSettings({ ...headerSettings, megaMenuColumns: cols });
+                              }}
+                              className="w-full text-xs bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:border-neon-purple"
+                            />
+                          </div>
+                          <div className="sm:col-span-1 space-y-1">
+                            <label className="text-[9px] text-gray-400 uppercase font-bold">Category Link</label>
+                            <input
+                              type="text"
+                              value={col.categoryHref}
+                              onChange={(e) => {
+                                const cols = [...(headerSettings.megaMenuColumns || [])];
+                                cols[colIdx] = { ...cols[colIdx], categoryHref: e.target.value };
+                                setHeaderSettings({ ...headerSettings, megaMenuColumns: cols });
+                              }}
+                              className="w-full text-xs bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:border-neon-purple font-mono"
+                            />
+                          </div>
+                          <div className="sm:col-span-1 space-y-1">
+                            <label className="text-[9px] text-gray-400 uppercase font-bold">Icon Name</label>
+                            <select
+                              value={col.iconName || 'Sparkles'}
+                              onChange={(e) => {
+                                const cols = [...(headerSettings.megaMenuColumns || [])];
+                                cols[colIdx] = { ...cols[colIdx], iconName: e.target.value };
+                                setHeaderSettings({ ...headerSettings, megaMenuColumns: cols });
+                              }}
+                              className="w-full text-xs bg-[#121212] border border-white/10 rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:border-neon-purple cursor-pointer"
+                            >
+                              <option value="Palette">Palette (Art)</option>
+                              <option value="Gamepad2">Gamepad2 (3D/Game)</option>
+                              <option value="Globe">Globe (Web)</option>
+                              <option value="Smartphone">Smartphone (Mobile/VR)</option>
+                              <option value="Landmark">Landmark (Arch Viz)</option>
+                              <option value="Sparkles">Sparkles (Generic)</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        {/* Sublinks list */}
+                        <div className="space-y-2 pt-2">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Sub-Service Links ({col.links?.length || 0})</span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const cols = [...(headerSettings.megaMenuColumns || [])];
+                                const currentLinks = cols[colIdx].links || [];
+                                cols[colIdx] = {
+                                  ...cols[colIdx],
+                                  links: [...currentLinks, { title: 'New Service Link', href: '/services' }]
+                                };
+                                setHeaderSettings({ ...headerSettings, megaMenuColumns: cols });
+                              }}
+                              className="text-[10px] text-neon-cyan hover:underline font-bold flex items-center gap-1 cursor-pointer"
+                            >
+                              <Plus className="w-3 h-3" /> Add Link
+                            </button>
+                          </div>
+
+                          <div className="space-y-2">
+                            {(col.links || []).map((sublink, subIdx) => (
+                              <div key={subIdx} className="flex items-center gap-2 bg-white/5 p-2 rounded-lg border border-white/5">
+                                <input
+                                  type="text"
+                                  value={sublink.title}
+                                  onChange={(e) => {
+                                    const cols = [...(headerSettings.megaMenuColumns || [])];
+                                    const links = [...cols[colIdx].links];
+                                    links[subIdx] = { ...links[subIdx], title: e.target.value };
+                                    cols[colIdx] = { ...cols[colIdx], links };
+                                    setHeaderSettings({ ...headerSettings, megaMenuColumns: cols });
+                                  }}
+                                  placeholder="Title"
+                                  className="w-1/2 text-xs bg-transparent border-0 px-2 py-1 text-white focus:outline-none"
+                                />
+                                <input
+                                  type="text"
+                                  value={sublink.href}
+                                  onChange={(e) => {
+                                    const cols = [...(headerSettings.megaMenuColumns || [])];
+                                    const links = [...cols[colIdx].links];
+                                    links[subIdx] = { ...links[subIdx], href: e.target.value };
+                                    cols[colIdx] = { ...cols[colIdx], links };
+                                    setHeaderSettings({ ...headerSettings, megaMenuColumns: cols });
+                                  }}
+                                  placeholder="URL"
+                                  className="w-1/2 text-xs bg-transparent border-0 px-2 py-1 text-gray-400 focus:outline-none font-mono text-[11px]"
+                                />
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const cols = [...(headerSettings.megaMenuColumns || [])];
+                                    cols[colIdx] = {
+                                      ...cols[colIdx],
+                                      links: cols[colIdx].links.filter((_, i) => i !== subIdx)
+                                    };
+                                    setHeaderSettings({ ...headerSettings, megaMenuColumns: cols });
+                                  }}
+                                  className="text-gray-500 hover:text-red-400 p-1 cursor-pointer"
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Section 4: Mobile Drawer Additional Text */}
+                <div className="p-6 md:p-8 rounded-3xl glass-panel border border-white/5 space-y-6">
+                  <h2 className="font-space font-bold text-base text-white uppercase tracking-wider flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-neon-blue" />
+                    Mobile Drawer Info & Footer Text
+                  </h2>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-1">
+                      <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Mobile Drawer Copyright</label>
+                      <input
+                        type="text"
+                        value={headerSettings.mobileCopyright || ''}
+                        onChange={(e) => setHeaderSettings({ ...headerSettings, mobileCopyright: e.target.value })}
+                        className="w-full text-xs bg-white/5 border border-white/10 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-neon-purple transition-all"
+                        placeholder="Fourth Pixel Inc. All rights reserved."
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Mobile Drawer Global Locations</label>
+                      <input
+                        type="text"
+                        value={headerSettings.mobileLocations || ''}
+                        onChange={(e) => setHeaderSettings({ ...headerSettings, mobileLocations: e.target.value })}
+                        className="w-full text-xs bg-white/5 border border-white/10 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-neon-purple transition-all"
+                        placeholder="San Francisco • Tokyo • London"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex justify-end pt-4">
+                  <button
+                    type="submit"
+                    disabled={saving}
+                    className="px-6 py-3 rounded-xl bg-neon-purple hover:bg-neon-blue text-white transition-all text-xs font-bold flex items-center gap-2 cursor-pointer shadow-lg shadow-neon-purple/20"
+                  >
+                    <Save className="w-4 h-4" />
+                    {saving ? 'Saving...' : 'Save Header Configuration'}
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {/* FOOTER SETTINGS TAB */}
+            {activeTab === 'footer' && footerSettings && (
+              <form onSubmit={handleSaveFooter} className="space-y-8">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <div>
+                    <h1 className="text-3xl font-space font-black text-white uppercase">Footer & Global Identity</h1>
+                    <p className="text-gray-500 text-xs mt-1">Manage global footer branding, mission description, multi-column navigation, newsletter banner, contact hotline, partner badges, and legal links.</p>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={saving}
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue hover:opacity-90 text-white font-space font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-neon-purple/20 cursor-pointer self-start md:self-auto"
+                  >
+                    <Save className="w-4 h-4" />
+                    {saving ? 'Saving...' : 'Save Footer'}
+                  </button>
+                </div>
+
+                {/* Section 1: Branding & Intro */}
+                <div className="p-6 md:p-8 rounded-3xl glass-panel border border-white/5 space-y-6">
+                  <h2 className="font-space font-bold text-base text-white uppercase tracking-wider flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-neon-cyan" />
+                    Footer Branding & Summary
+                  </h2>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="md:col-span-1">
+                      <ImageUpload
+                        value={footerSettings.logo || ''}
+                        onChange={(url) => setFooterSettings({ ...footerSettings, logo: url })}
+                        label="Footer Logo (Brand SVG / PNG)"
+                      />
+                    </div>
+                    <div className="md:col-span-2 space-y-1">
+                      <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Company About / Mission Statement</label>
+                      <textarea
+                        rows={5}
+                        value={footerSettings.aboutText || ''}
+                        onChange={(e) => setFooterSettings({ ...footerSettings, aboutText: e.target.value })}
+                        className="w-full text-xs bg-white/5 border border-white/10 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-neon-purple transition-all resize-none"
+                        placeholder="We blend high-end art design, gaming engines, and premium web architectures..."
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Section 2: Navigation Columns */}
+                <div className="p-6 md:p-8 rounded-3xl glass-panel border border-white/5 space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className="font-space font-bold text-base text-white uppercase tracking-wider flex items-center gap-2">
+                        <PanelBottom className="w-4 h-4 text-neon-purple" />
+                        Footer Navigation Columns
+                      </h2>
+                      <p className="text-gray-500 text-xs mt-1">Manage vertical link lists shown in the center of the footer.</p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFooterSettings({
+                          ...footerSettings,
+                          columns: [
+                            ...(footerSettings.columns || []),
+                            { title: 'New Column', links: [{ label: 'Link', href: '/' }] }
+                          ]
+                        });
+                      }}
+                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      Add Column
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {(footerSettings.columns || []).map((col, colIdx) => (
+                      <div key={colIdx} className="p-5 rounded-2xl bg-white/[0.02] border border-white/5 space-y-4">
+                        <div className="flex items-center justify-between pb-3 border-b border-white/5">
+                          <input
+                            type="text"
+                            value={col.title}
+                            onChange={(e) => {
+                              const cols = [...(footerSettings.columns || [])];
+                              cols[colIdx] = { ...cols[colIdx], title: e.target.value };
+                              setFooterSettings({ ...footerSettings, columns: cols });
+                            }}
+                            placeholder="Column Title (e.g. Company, Services)"
+                            className="font-space font-bold text-xs uppercase text-white bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-neon-purple w-2/3"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const cols = footerSettings.columns.filter((_, i) => i !== colIdx);
+                              setFooterSettings({ ...footerSettings, columns: cols });
+                            }}
+                            className="p-1.5 rounded bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20 cursor-pointer"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
+                        </div>
+
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Links ({col.links?.length || 0})</span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const cols = [...(footerSettings.columns || [])];
+                                const links = [...cols[colIdx].links, { label: 'New Link', href: '/' }];
+                                cols[colIdx] = { ...cols[colIdx], links };
+                                setFooterSettings({ ...footerSettings, columns: cols });
+                              }}
+                              className="text-[10px] text-neon-cyan hover:underline font-bold flex items-center gap-1 cursor-pointer"
+                            >
+                              <Plus className="w-3 h-3" /> Add Link
+                            </button>
+                          </div>
+
+                          <div className="space-y-2">
+                            {(col.links || []).map((link, linkIdx) => (
+                              <div key={linkIdx} className="flex items-center gap-2 bg-white/5 p-2 rounded-lg border border-white/5">
+                                <input
+                                  type="text"
+                                  value={link.label}
+                                  onChange={(e) => {
+                                    const cols = [...(footerSettings.columns || [])];
+                                    const links = [...cols[colIdx].links];
+                                    links[linkIdx] = { ...links[linkIdx], label: e.target.value };
+                                    cols[colIdx] = { ...cols[colIdx], links };
+                                    setFooterSettings({ ...footerSettings, columns: cols });
+                                  }}
+                                  placeholder="Label"
+                                  className="w-1/2 text-xs bg-transparent border-0 px-2 py-1 text-white focus:outline-none"
+                                />
+                                <input
+                                  type="text"
+                                  value={link.href}
+                                  onChange={(e) => {
+                                    const cols = [...(footerSettings.columns || [])];
+                                    const links = [...cols[colIdx].links];
+                                    links[linkIdx] = { ...links[linkIdx], href: e.target.value };
+                                    cols[colIdx] = { ...cols[colIdx], links };
+                                    setFooterSettings({ ...footerSettings, columns: cols });
+                                  }}
+                                  placeholder="URL"
+                                  className="w-1/2 text-xs bg-transparent border-0 px-2 py-1 text-gray-400 focus:outline-none font-mono text-[11px]"
+                                />
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const cols = [...(footerSettings.columns || [])];
+                                    cols[colIdx] = {
+                                      ...cols[colIdx],
+                                      links: cols[colIdx].links.filter((_, i) => i !== linkIdx)
+                                    };
+                                    setFooterSettings({ ...footerSettings, columns: cols });
+                                  }}
+                                  className="text-gray-500 hover:text-red-400 p-1 cursor-pointer"
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Section 3: Newsletter Banner Configuration */}
+                <div className="p-6 md:p-8 rounded-3xl glass-panel border border-white/5 space-y-6">
+                  <h2 className="font-space font-bold text-base text-white uppercase tracking-wider flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-neon-blue" />
+                    Newsletter Banner Copy
+                  </h2>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-1">
+                      <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Newsletter Heading</label>
+                      <input
+                        type="text"
+                        value={footerSettings.newsletterTitle || ''}
+                        onChange={(e) => setFooterSettings({ ...footerSettings, newsletterTitle: e.target.value })}
+                        className="w-full text-xs bg-white/5 border border-white/10 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-neon-purple transition-all"
+                        placeholder="Subscribe"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Newsletter Subtitle / Description</label>
+                      <input
+                        type="text"
+                        value={footerSettings.newsletterSubtitle || ''}
+                        onChange={(e) => setFooterSettings({ ...footerSettings, newsletterSubtitle: e.target.value })}
+                        className="w-full text-xs bg-white/5 border border-white/10 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-neon-purple transition-all"
+                        placeholder="Get the latest creative tech news..."
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Section 4: Accreditations & Badges */}
+                <div className="p-6 md:p-8 rounded-3xl glass-panel border border-white/5 space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className="font-space font-bold text-base text-white uppercase tracking-wider flex items-center gap-2">
+                        <Check className="w-4 h-4 text-emerald-400" />
+                        Accreditation Badges & Industry Ratings
+                      </h2>
+                      <p className="text-gray-500 text-xs mt-1">Badges shown horizontally above the footer bottom divider.</p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFooterSettings({
+                          ...footerSettings,
+                          badges: [...(footerSettings.badges || []), 'New Accreditation Badge']
+                        });
+                      }}
+                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      Add Badge
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                    {(footerSettings.badges || []).map((badge, bIdx) => (
+                      <div key={bIdx} className="flex items-center gap-2 bg-white/5 p-2 rounded-xl border border-white/10">
+                        <input
+                          type="text"
+                          value={badge}
+                          onChange={(e) => {
+                            const updated = [...(footerSettings.badges || [])];
+                            updated[bIdx] = e.target.value;
+                            setFooterSettings({ ...footerSettings, badges: updated });
+                          }}
+                          className="flex-1 text-xs bg-transparent border-0 px-2 py-1 text-white focus:outline-none font-semibold uppercase text-[10px]"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const updated = footerSettings.badges.filter((_, i) => i !== bIdx);
+                            setFooterSettings({ ...footerSettings, badges: updated });
+                          }}
+                          className="text-gray-500 hover:text-red-400 p-1 cursor-pointer"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Section 5: Contact Hotline & Address */}
+                <div className="p-6 md:p-8 rounded-3xl glass-panel border border-white/5 space-y-6">
+                  <h2 className="font-space font-bold text-base text-white uppercase tracking-wider flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-neon-purple" />
+                    Footer Contact Hotline & Headquarters
+                  </h2>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="space-y-1">
+                      <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Office Location Address</label>
+                      <input
+                        type="text"
+                        value={footerSettings.contactInfo?.address || ''}
+                        onChange={(e) => setFooterSettings({
+                          ...footerSettings,
+                          contactInfo: { ...footerSettings.contactInfo, address: e.target.value }
+                        })}
+                        className="w-full text-xs bg-white/5 border border-white/10 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-neon-purple transition-all"
+                        placeholder="800 Space Park Ave, San Francisco, CA"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Hotline Phone</label>
+                      <input
+                        type="text"
+                        value={footerSettings.contactInfo?.phone || ''}
+                        onChange={(e) => setFooterSettings({
+                          ...footerSettings,
+                          contactInfo: { ...footerSettings.contactInfo, phone: e.target.value }
+                        })}
+                        className="w-full text-xs bg-white/5 border border-white/10 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-neon-purple transition-all"
+                        placeholder="+1 (800) 555-LOGIC"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Support / Contact Email</label>
+                      <input
+                        type="email"
+                        value={footerSettings.contactInfo?.email || ''}
+                        onChange={(e) => setFooterSettings({
+                          ...footerSettings,
+                          contactInfo: { ...footerSettings.contactInfo, email: e.target.value }
+                        })}
+                        className="w-full text-xs bg-white/5 border border-white/10 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-neon-purple transition-all"
+                        placeholder="hello@logicforge.co"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Section 6: Social Media Links */}
+                <div className="p-6 md:p-8 rounded-3xl glass-panel border border-white/5 space-y-6">
+                  <h2 className="font-space font-bold text-base text-white uppercase tracking-wider flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-neon-cyan" />
+                    Official Social Channels
+                  </h2>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    {[
+                      { key: 'linkedin', label: 'LinkedIn Profile / Page' },
+                      { key: 'twitter', label: 'Twitter / X Profile' },
+                      { key: 'facebook', label: 'Facebook Page' },
+                      { key: 'instagram', label: 'Instagram Handle' },
+                      { key: 'github', label: 'GitHub Organization' }
+                    ].map((social) => (
+                      <div key={social.key} className="space-y-1">
+                        <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">{social.label}</label>
+                        <input
+                          type="text"
+                          value={(footerSettings.socialLinks as any)?.[social.key] || ''}
+                          onChange={(e) => setFooterSettings({
+                            ...footerSettings,
+                            socialLinks: {
+                              ...footerSettings.socialLinks,
+                              [social.key]: e.target.value
+                            }
+                          })}
+                          className="w-full text-xs bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-neon-purple transition-all"
+                          placeholder={`https://${social.key}.com/...`}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Section 7: Legal Disclosures & Copyright */}
+                <div className="p-6 md:p-8 rounded-3xl glass-panel border border-white/5 space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className="font-space font-bold text-base text-white uppercase tracking-wider flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-neon-blue" />
+                        Copyright Notice & Legal Links
+                      </h2>
+                      <p className="text-gray-500 text-xs mt-1">Displayed at the very bottom bar of the site.</p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFooterSettings({
+                          ...footerSettings,
+                          legalLinks: [...(footerSettings.legalLinks || []), { label: 'Terms', href: '/terms' }]
+                        });
+                      }}
+                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      Add Legal Link
+                    </button>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="space-y-1">
+                      <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Copyright Notice Statement</label>
+                      <input
+                        type="text"
+                        value={footerSettings.copyrightText || ''}
+                        onChange={(e) => setFooterSettings({ ...footerSettings, copyrightText: e.target.value })}
+                        className="w-full text-xs bg-white/5 border border-white/10 rounded-xl px-3.5 py-3 text-white focus:outline-none focus:border-neon-purple transition-all"
+                        placeholder="Fourth Pixel Inc. All rights reserved."
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Legal & Compliance Links</label>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                        {(footerSettings.legalLinks || []).map((legal, lIdx) => (
+                          <div key={lIdx} className="flex items-center gap-2 bg-white/5 p-2 rounded-xl border border-white/10">
+                            <input
+                              type="text"
+                              value={legal.label}
+                              onChange={(e) => {
+                                const updated = [...(footerSettings.legalLinks || [])];
+                                updated[lIdx] = { ...updated[lIdx], label: e.target.value };
+                                setFooterSettings({ ...footerSettings, legalLinks: updated });
+                              }}
+                              placeholder="Label"
+                              className="w-1/2 text-xs bg-transparent border-0 px-2 py-1 text-white focus:outline-none"
+                            />
+                            <input
+                              type="text"
+                              value={legal.href}
+                              onChange={(e) => {
+                                const updated = [...(footerSettings.legalLinks || [])];
+                                updated[lIdx] = { ...updated[lIdx], href: e.target.value };
+                                setFooterSettings({ ...footerSettings, legalLinks: updated });
+                              }}
+                              placeholder="URL"
+                              className="w-1/2 text-xs bg-transparent border-0 px-2 py-1 text-gray-400 focus:outline-none font-mono text-[11px]"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const updated = footerSettings.legalLinks.filter((_, i) => i !== lIdx);
+                                setFooterSettings({ ...footerSettings, legalLinks: updated });
+                              }}
+                              className="text-gray-500 hover:text-red-400 p-1 cursor-pointer"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex justify-end pt-4">
+                  <button
+                    type="submit"
+                    disabled={saving}
+                    className="px-6 py-3 rounded-xl bg-neon-purple hover:bg-neon-blue text-white transition-all text-xs font-bold flex items-center gap-2 cursor-pointer shadow-lg shadow-neon-purple/20"
+                  >
+                    <Save className="w-4 h-4" />
+                    {saving ? 'Saving...' : 'Save Footer Configuration'}
                   </button>
                 </div>
               </form>

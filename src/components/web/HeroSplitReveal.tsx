@@ -1,17 +1,9 @@
 'use client';
 
-import HeroSlider, { SlideData } from '@/components/web/HeroSlider';
+import HeroSlider, { HeroBannerContent } from '@/components/web/HeroSlider';
 
 interface ContentProps {
-  content?: {
-    tagline?: string;
-    heading?: string;
-    subheading?: string;
-    ctaText1?: string;
-    ctaText2?: string;
-    slides?: SlideData[];
-    autoPlayInterval?: number;
-  };
+  content?: Record<string, any>;
 }
 
 export default function HeroSplitReveal({ content }: ContentProps) {

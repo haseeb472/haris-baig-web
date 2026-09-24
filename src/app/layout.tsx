@@ -41,8 +41,16 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'LogicForge | Creative Digital Production Agency',
+    title: 'Fourth Pixel | Creative Digital Production Agency',
     description: 'Immersive 3D animations, custom game design, and premium WebGL architectures.'
+  },
+  icons: {
+    icon: [
+      { url: '/images/favicon.jpg', type: 'image/jpeg' },
+      { url: '/icon.png', type: 'image/png' }
+    ],
+    shortcut: '/images/favicon.jpg',
+    apple: '/apple-icon.png'
   }
 };
 
@@ -59,6 +67,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <link rel="icon" href="/images/favicon.jpg" type="image/jpeg" />
+        <link rel="shortcut icon" href="/images/favicon.jpg" type="image/jpeg" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

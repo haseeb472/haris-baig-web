@@ -2,24 +2,35 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, Sparkles, Send, Palette, Gamepad2, Globe, Smartphone, Landmark, ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { HeaderSettings, getDefaultHeader } from '@/lib/cms-types';
 
-const NAV_LINKS = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Services', href: '/services' },
-  { name: 'Case Studies', href: '/projects' },
-  { name: 'Contact', href: '/contact' }
-];
+const defaultHeader = getDefaultHeader();
+
+const getColumnIcon = (iconName?: string) => {
+  switch (iconName?.toLowerCase()) {
+    case 'palette': return Palette;
+    case 'gamepad2':
+    case 'gamepad': return Gamepad2;
+    case 'globe': return Globe;
+    case 'smartphone': return Smartphone;
+    case 'landmark': return Landmark;
+    default: return Sparkles;
+  }
+};
 
 export default function Navbar() {
+  const [headerData, setHeaderData] = useState<HeaderSettings>(defaultHeader);
   const [scrolled, setScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const pathname = usePathname();
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const lastScrollY = useRef(0);
 
   const handleMouseEnter = () => {
     if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
@@ -33,22 +44,72 @@ export default function Navbar() {
   };
 
   useEffect(() => {
+    lastScrollY.current = typeof window !== 'undefined' ? window.scrollY : 0;
+    if (lastScrollY.current > 40) {
+      setScrolled(true);
+    }
+
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
+      const currentScrollY = window.scrollY;
+
+      // Always show unscrolled header at the top
+      if (currentScrollY <= 40) {
+        setIsVisible(true);
         setScrolled(false);
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      setScrolled(true);
+
+      // Keep header visible while mobile menu is open
+      if (mobileMenuOpen) {
+        setIsVisible(true);
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      const diff = currentScrollY - lastScrollY.current;
+
+      // Threshold to prevent jitter on tiny scroll adjustments
+      if (Math.abs(diff) > 6) {
+        if (diff > 0 && currentScrollY > 80) {
+          // Scrolling down -> hide header smoothly
+          setIsVisible(false);
+          setMegaMenuOpen(false);
+        } else if (diff < 0) {
+          // Scrolling up -> reveal header with smooth animation
+          setIsVisible(true);
+        }
+        lastScrollY.current = currentScrollY;
       }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
-  // Close menus on route change
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [mobileMenuOpen]);
+
+  // Close menus and restore header visibility on route change
   useEffect(() => {
     setMobileMenuOpen(false);
     setMegaMenuOpen(false);
+    setIsVisible(true);
   }, [pathname]);
+
+  // Sync header configuration with CMS
+  useEffect(() => {
+    fetch('/api/cms?table=header')
+      .then(res => res.json())
+      .then(data => {
+        if (data && typeof data === 'object') {
+          const item = Array.isArray(data) ? data[0] : data;
+          if (item && item.navLinks) {
+            setHeaderData((prev) => ({ ...prev, ...item }));
+          }
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const menuVariants = {
     closed: {
@@ -77,30 +138,42 @@ export default function Navbar() {
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 w-full z-[99] transition-all duration-300 ${
+      <motion.header
+        initial={{ y: 0 }}
+        animate={{
+          y: isVisible ? 0 : '-100%',
+          opacity: isVisible ? 1 : 0
+        }}
+        transition={{
+          duration: 0.35,
+          ease: [0.22, 1, 0.36, 1]
+        }}
+        className={`fixed top-0 left-0 w-full z-[99] ${
           scrolled
-            ? 'py-4 glass-panel border-b border-white/5 shadow-lg'
-            : 'py-6 bg-transparent border-b border-transparent'
-        }`}
+            ? 'py-3 sm:py-3.5 glass-panel border-b border-white/5 shadow-lg'
+            : 'py-4 sm:py-5 bg-transparent border-b border-transparent'
+        } transition-[padding,background-color,border-color,box-shadow] duration-300`}
       >
         <div className="max-w-[105rem] mx-auto px-6 md:px-12 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group cursor-pointer">
-            <span className="p-2.5 rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue text-white font-space font-bold text-lg flex items-center justify-center shadow-lg group-hover:shadow-neon-purple/50 transition-all duration-300">
-              LF
-            </span>
-            <span className="font-space font-bold text-xl tracking-wider text-white group-hover:text-neon-cyan transition-colors">
-              Logic<span className="text-neon-purple">Forge</span>
-            </span>
+          <Link href="/" className="flex items-center group cursor-pointer py-1">
+            <Image
+              src={headerData.logo || "/images/icons/brand_logo.svg"}
+              alt={headerData.logoAlt || "Fourth Pixel"}
+              width={249}
+              height={287}
+              priority
+              className="w-[84px] sm:w-[90px] h-auto object-contain brightness-0 invert drop-shadow-[0_0_12px_rgba(255,255,255,0.15)] group-hover:drop-shadow-[0_0_16px_rgba(34,211,238,0.4)] transition-all duration-300"
+            />
           </Link>
 
           {/* Desktop Nav Links */}
           <nav className="hidden lg:flex items-center gap-8 h-full">
-            {NAV_LINKS.map((link) => {
+            {headerData.navLinks.map((link) => {
               const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
+              const isMegaMenuLink = link.name.toLowerCase() === 'services' && (headerData.megaMenuEnabled ?? true);
               
-              if (link.name === 'Services') {
+              if (isMegaMenuLink) {
                 return (
                   <div
                     key={link.name}
@@ -149,10 +222,10 @@ export default function Navbar() {
           {/* Action Buttons */}
           <div className="hidden lg:flex items-center gap-4">
             <Link
-              href="/contact?tab=quote"
+              href={headerData.ctaLink || "/contact?tab=quote"}
               className="relative overflow-hidden group rounded-xl px-5 py-2.5 font-semibold text-xs tracking-wider uppercase text-white bg-gradient-to-r from-neon-purple to-neon-blue shadow-lg hover:shadow-neon-purple/50 transition-all duration-300 flex items-center gap-2 cursor-pointer"
             >
-              <span>Request Quote</span>
+              <span>{headerData.ctaText || "Request Quote"}</span>
               <Send className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </Link>
           </div>
@@ -169,7 +242,7 @@ export default function Navbar() {
 
         {/* Mega Menu Dropdown */}
         <AnimatePresence>
-          {megaMenuOpen && (
+          {megaMenuOpen && (headerData.megaMenuEnabled ?? true) && headerData.megaMenuColumns && headerData.megaMenuColumns.length > 0 && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -179,271 +252,42 @@ export default function Navbar() {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <div className="max-w-[105rem] mx-auto grid grid-cols-5 gap-8 text-left">
-                {/* Column 1: Art & Animations */}
-                <div className="space-y-4">
-                  <Link 
-                    href="/services/art-animation"
-                    onClick={() => setMegaMenuOpen(false)}
-                    className="flex items-center gap-2 group/title font-space font-bold text-sm tracking-wide text-white uppercase"
-                  >
-                    <Palette className="w-4 h-4 text-neon-purple group-hover/title:scale-110 transition-transform" />
-                    <span className="group-hover/title:text-neon-purple transition-colors">Art & Animations</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover/title:opacity-100 group-hover/title:translate-x-0.5 transition-all text-neon-purple" />
-                  </Link>
-                  <div className="h-[1px] bg-white/5 w-full" />
-                  <ul className="space-y-2.5">
-                    <li>
+              <div className="max-w-[105rem] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 text-left">
+                {headerData.megaMenuColumns.map((col, cIdx) => {
+                  const Icon = getColumnIcon(col.iconName);
+                  return (
+                    <div key={cIdx} className="space-y-4">
                       <Link 
-                        href="/services/art-animation/character-design"
+                        href={col.categoryHref || '#'}
                         onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
+                        className="flex items-center gap-2 group/title font-space font-bold text-sm tracking-wide text-white uppercase"
                       >
-                        Character Design
+                        <Icon className="w-4 h-4 text-neon-purple group-hover/title:scale-110 transition-transform" />
+                        <span className="group-hover/title:text-neon-purple transition-colors">{col.title}</span>
+                        <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover/title:opacity-100 group-hover/title:translate-x-0.5 transition-all text-neon-purple" />
                       </Link>
-                    </li>
-                    <li>
-                      <Link 
-                        href="/services/art-animation/concept-illustration"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        Concept Illustration
-                      </Link>
-                    </li>
-                    <li>
-                      <Link 
-                        href="/services/art-animation/cinematic-trailers"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        Cinematic Trailers
-                      </Link>
-                    </li>
-                    <li>
-                      <Link 
-                        href="/services/art-animation/vfx-simulation"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        VFX & Simulation
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Column 2: Game Development */}
-                <div className="space-y-4">
-                  <Link 
-                    href="/services/game-development"
-                    onClick={() => setMegaMenuOpen(false)}
-                    className="flex items-center gap-2 group/title font-space font-bold text-sm tracking-wide text-white uppercase"
-                  >
-                    <Gamepad2 className="w-4 h-4 text-neon-cyan group-hover/title:scale-110 transition-transform" />
-                    <span className="group-hover/title:text-neon-cyan transition-colors">Game Development</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover/title:opacity-100 group-hover/title:translate-x-0.5 transition-all text-neon-cyan" />
-                  </Link>
-                  <div className="h-[1px] bg-white/5 w-full" />
-                  <ul className="space-y-2.5">
-                    <li>
-                      <Link 
-                        href="/services/game-development/aaa-game-development"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        AAA Game Dev
-                      </Link>
-                    </li>
-                    <li>
-                      <Link 
-                        href="/services/game-development/gameplay-programming"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        Gameplay Programming
-                      </Link>
-                    </li>
-                    <li>
-                      <Link 
-                        href="/services/game-development/multiplayer-systems"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        Multiplayer Systems
-                      </Link>
-                    </li>
-                    <li>
-                      <Link 
-                        href="/services/game-development/console-porting"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        Console Porting
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Column 3: Web Development */}
-                <div className="space-y-4">
-                  <Link 
-                    href="/services/web-development"
-                    onClick={() => setMegaMenuOpen(false)}
-                    className="flex items-center gap-2 group/title font-space font-bold text-sm tracking-wide text-white uppercase"
-                  >
-                    <Globe className="w-4 h-4 text-neon-blue group-hover/title:scale-110 transition-transform" />
-                    <span className="group-hover/title:text-neon-blue transition-colors">Web Development</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover/title:opacity-100 group-hover/title:translate-x-0.5 transition-all text-neon-blue" />
-                  </Link>
-                  <div className="h-[1px] bg-white/5 w-full" />
-                  <ul className="space-y-2.5">
-                    <li>
-                      <Link 
-                        href="/services/web-development/custom-corporate-development"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        Custom Corporate
-                      </Link>
-                    </li>
-                    <li>
-                      <Link 
-                        href="/services/web-development/threejs-interactive"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        Three.js Interactive
-                      </Link>
-                    </li>
-                    <li>
-                      <Link 
-                        href="/services/web-development/cms-architectures"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        CMS Architectures
-                      </Link>
-                    </li>
-                    <li>
-                      <Link 
-                        href="/services/web-development/speed-optimization"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        Speed Optimization
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Column 4: AR/VR & Metaverse */}
-                <div className="space-y-4">
-                  <Link 
-                    href="/services/ar-vr"
-                    onClick={() => setMegaMenuOpen(false)}
-                    className="flex items-center gap-2 group/title font-space font-bold text-sm tracking-wide text-white uppercase"
-                  >
-                    <Smartphone className="w-4 h-4 text-neon-purple group-hover/title:scale-110 transition-transform" />
-                    <span className="group-hover/title:text-neon-purple transition-colors">AR/VR & Metaverse</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover/title:opacity-100 group-hover/title:translate-x-0.5 transition-all text-neon-purple" />
-                  </Link>
-                  <div className="h-[1px] bg-white/5 w-full" />
-                  <ul className="space-y-2.5">
-                    <li>
-                      <Link 
-                        href="/services/ar-vr/vr-training-simulators"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        VR Training Simulators
-                      </Link>
-                    </li>
-                    <li>
-                      <Link 
-                        href="/services/ar-vr/virtual-showrooms"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        Virtual Showrooms
-                      </Link>
-                    </li>
-                    <li>
-                      <Link 
-                        href="/services/ar-vr/spatial-catalogs"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        Spatial catalogs
-                      </Link>
-                    </li>
-                    <li>
-                      <Link 
-                        href="/services/ar-vr/metaverse-assets"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        Metaverse Assets
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Column 5: Architectural Viz */}
-                <div className="space-y-4">
-                  <Link 
-                    href="/services/arch-viz"
-                    onClick={() => setMegaMenuOpen(false)}
-                    className="flex items-center gap-2 group/title font-space font-bold text-sm tracking-wide text-white uppercase"
-                  >
-                    <Landmark className="w-4 h-4 text-neon-cyan group-hover/title:scale-110 transition-transform" />
-                    <span className="group-hover/title:text-neon-cyan transition-colors">Architectural Viz</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover/title:opacity-100 group-hover/title:translate-x-0.5 transition-all text-neon-cyan" />
-                  </Link>
-                  <div className="h-[1px] bg-white/5 w-full" />
-                  <ul className="space-y-2.5">
-                    <li>
-                      <Link 
-                        href="/services/arch-viz/real-time-walkthroughs"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        Real-Time Walkthroughs
-                      </Link>
-                    </li>
-                    <li>
-                      <Link 
-                        href="/services/arch-viz/interior-cgi-blueprints"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        Interior CGI blueprints
-                      </Link>
-                    </li>
-                    <li>
-                      <Link 
-                        href="/services/arch-viz/exterior-renders"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        Exterior Renders
-                      </Link>
-                    </li>
-                    <li>
-                      <Link 
-                        href="/services/arch-viz/urban-masterplans"
-                        onClick={() => setMegaMenuOpen(false)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
-                      >
-                        Urban Masterplans
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
+                      <div className="h-[1px] bg-white/5 w-full" />
+                      <ul className="space-y-2.5">
+                        {col.links.map((subLink, sIdx) => (
+                          <li key={sIdx}>
+                            <Link 
+                              href={subLink.href}
+                              onClick={() => setMegaMenuOpen(false)}
+                              className="text-xs text-gray-400 hover:text-white transition-colors block py-0.5 hover:translate-x-1 duration-200 transition-transform"
+                            >
+                              {subLink.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })}
               </div>
             </motion.div>
           )}
         </AnimatePresence>
-      </header>
+      </motion.header>
 
       {/* Fullscreen Mobile Navigation Drawer */}
       <AnimatePresence>
@@ -468,12 +312,13 @@ export default function Navbar() {
               exit="closed"
               className="flex-1 flex flex-col justify-center gap-6 max-w-md mx-auto w-full z-10"
             >
-              {NAV_LINKS.map((link) => {
+              {headerData.navLinks.map((link) => {
                 const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
                 return (
                   <motion.div key={link.name} variants={linkVariants}>
                     <Link
                       href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
                       className={`font-space font-bold text-3xl tracking-wide block hover:text-neon-cyan transition-colors cursor-pointer ${
                         isActive ? 'text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-neon-blue' : 'text-gray-300'
                       }`}
@@ -488,18 +333,19 @@ export default function Navbar() {
 
               <motion.div variants={linkVariants} className="flex flex-col gap-4">
                 <Link
-                  href="/contact?tab=quote"
+                  href={headerData.ctaLink || "/contact?tab=quote"}
+                  onClick={() => setMobileMenuOpen(false)}
                   className="w-full text-center rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue text-white font-bold py-3.5 tracking-wider uppercase text-sm cursor-pointer shadow-lg shadow-neon-purple/20"
                 >
-                  Request Quote
+                  {headerData.ctaText || "Request Quote"}
                 </Link>
               </motion.div>
             </motion.div>
 
             {/* Mobile Footer Info */}
             <div className="text-center text-xs text-gray-600 mt-auto pt-8 z-10 font-sans">
-              <p>© {new Date().getFullYear()} LogicForge Inc. All rights reserved.</p>
-              <p className="mt-1 text-gray-500">San Francisco • Tokyo • London</p>
+              <p>© {new Date().getFullYear()} {headerData.mobileCopyright || "Fourth Pixel Inc. All rights reserved."}</p>
+              {headerData.mobileLocations && <p className="mt-1 text-gray-500">{headerData.mobileLocations}</p>}
             </div>
           </motion.div>
         )}

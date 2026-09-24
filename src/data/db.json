@@ -1390,8 +1390,8 @@
     }
   ],
   "settings": {
-    "siteName": "LogicForge",
-    "logo": "LogicForge",
+    "siteName": "Fourth Pixel",
+    "logo": "/images/icons/brand_logo.svg",
     "contactEmail": "hello@logicforge.co",
     "contactPhone": "+1 (800) 555-LOGIC",
     "address": "800 Space Park Ave, San Francisco, CA 94103",
@@ -1402,7 +1402,134 @@
       "instagram": "https://instagram.com/logicforge",
       "github": "https://github.com/logicforge"
     },
-    "aboutSummary": "LogicForge is an award-winning global digital production studio blending cutting-edge 3D animations, real-time gaming engines, and premium web development to architect immersive digital realities."
+    "aboutSummary": "We bring imagination to life through bold ideas, thoughtful design, and powerful technology. We create digital experiences built to be seen, felt, and remembered."
+  },
+  "header": {
+    "logo": "/images/icons/brand_logo.svg",
+    "logoAlt": "Fourth Pixel",
+    "navLinks": [
+      { "name": "Home", "href": "/" },
+      { "name": "About", "href": "/about" },
+      { "name": "Services", "href": "/services" },
+      { "name": "Case Studies", "href": "/projects" },
+      { "name": "Contact", "href": "/contact" }
+    ],
+    "ctaText": "Request Quote",
+    "ctaLink": "/contact?tab=quote",
+    "megaMenuEnabled": true,
+    "megaMenuColumns": [
+      {
+        "title": "Art & Animations",
+        "categoryHref": "/services/art-animation",
+        "iconName": "Palette",
+        "links": [
+          { "title": "Character Design", "href": "/services/art-animation/character-design" },
+          { "title": "Concept Illustration", "href": "/services/art-animation/concept-illustration" },
+          { "title": "Cinematic Trailers", "href": "/services/art-animation/cinematic-trailers" },
+          { "title": "VFX & Simulation", "href": "/services/art-animation/vfx-simulation" }
+        ]
+      },
+      {
+        "title": "3D Production",
+        "categoryHref": "/services/game-development",
+        "iconName": "Gamepad2",
+        "links": [
+          { "title": "Asset Production", "href": "/services/game-development/3d-asset-production" },
+          { "title": "Environment Modeling", "href": "/services/game-development/environment-modeling" },
+          { "title": "Hard Surface Models", "href": "/services/game-development/hard-surface" },
+          { "title": "Texturing & Shading", "href": "/services/game-development/texturing-shading" }
+        ]
+      },
+      {
+        "title": "Web Development",
+        "categoryHref": "/services/web-development",
+        "iconName": "Globe",
+        "links": [
+          { "title": "Custom Corporate", "href": "/services/web-development/custom-corporate-development" },
+          { "title": "Three.js Interactive", "href": "/services/web-development/threejs-interactive" },
+          { "title": "CMS Architectures", "href": "/services/web-development/cms-architectures" },
+          { "title": "Speed Optimization", "href": "/services/web-development/speed-optimization" }
+        ]
+      },
+      {
+        "title": "AR/VR & Metaverse",
+        "categoryHref": "/services/ar-vr",
+        "iconName": "Smartphone",
+        "links": [
+          { "title": "VR Training Simulators", "href": "/services/ar-vr/vr-training-simulators" },
+          { "title": "Virtual Showrooms", "href": "/services/ar-vr/virtual-showrooms" },
+          { "title": "Spatial Catalogs", "href": "/services/ar-vr/spatial-catalogs" },
+          { "title": "Metaverse Assets", "href": "/services/ar-vr/metaverse-assets" }
+        ]
+      },
+      {
+        "title": "Architectural Viz",
+        "categoryHref": "/services/arch-viz",
+        "iconName": "Landmark",
+        "links": [
+          { "title": "Real-Time Walkthroughs", "href": "/services/arch-viz/real-time-walkthroughs" },
+          { "title": "Interior CGI Blueprints", "href": "/services/arch-viz/interior-cgi-blueprints" },
+          { "title": "Exterior Renders", "href": "/services/arch-viz/exterior-renders" },
+          { "title": "Urban Masterplans", "href": "/services/arch-viz/urban-masterplans" }
+        ]
+      }
+    ],
+    "mobileCopyright": "Fourth Pixel Inc. All rights reserved.",
+    "mobileLocations": "San Francisco • Tokyo • London"
+  },
+  "footer": {
+    "logo": "/images/icons/brand_logo.svg",
+    "aboutText": "We blend high-end art design, gaming engines, and premium web architectures to create interactive digital experiences that scale globally.",
+    "columns": [
+      {
+        "title": "Company",
+        "links": [
+          { "label": "Home", "href": "/" },
+          { "label": "About Us", "href": "/about" },
+          { "label": "Our Services", "href": "/services" },
+          { "label": "Case Studies", "href": "/projects" },
+          { "label": "FAQ Hub", "href": "/faq" },
+          { "label": "Contact Hub", "href": "/contact" }
+        ]
+      },
+      {
+        "title": "Services",
+        "links": [
+          { "label": "Art & Animation", "href": "/services/art-animation" },
+          { "label": "Game Development", "href": "/services/game-development" },
+          { "label": "Web Development", "href": "/services/web-development" },
+          { "label": "AR/VR & Metaverse", "href": "/services/ar-vr" },
+          { "label": "Architectural Viz", "href": "/services/arch-viz" }
+        ]
+      }
+    ],
+    "newsletterTitle": "Subscribe",
+    "newsletterSubtitle": "Get the latest creative tech news, game development strategies, and interactive project updates.",
+    "badges": [
+      "Clutch Rated 4.9★",
+      "Google Certified Partner",
+      "Awwwards Honorable Mention",
+      "Upwork Top Rated Plus"
+    ],
+    "contactInfo": {
+      "address": "800 Space Park Ave, San Francisco, CA 94103",
+      "phone": "+1 (800) 555-LOGIC",
+      "email": "hello@logicforge.co"
+    },
+    "socialLinks": {
+      "facebook": "https://facebook.com/logicforge",
+      "twitter": "https://twitter.com/logicforge",
+      "linkedin": "https://linkedin.com/company/logicforge",
+      "instagram": "https://instagram.com/logicforge",
+      "github": "https://github.com/logicforge"
+    },
+    "copyrightText": "Fourth Pixel Inc. All rights reserved.",
+    "legalLinks": [
+      { "label": "FAQ", "href": "/faq" },
+      { "label": "Privacy Policy", "href": "/privacy" },
+      { "label": "Terms of Service", "href": "/terms" },
+      { "label": "Cookie Policy", "href": "/cookies" }
+    ]
   },
   "leads": [],
   "newsletter": [],
@@ -1415,68 +1542,19 @@
         {
           "id": "home-hero",
           "type": "HeroSlider",
-          "title": "Hero Showcase Slider",
+          "title": "Hero Showcase Banner",
           "enabled": true,
           "content": {
-            "autoPlayInterval": 6000,
-            "slides": [
-              {
-                "id": "web-development",
-                "category": "Web Development",
-                "badge": "Available for Work",
-                "title": "Transform your ideas into digital success with us!",
-                "highlightWords": ["digital success"],
-                "description": "We're your partner in product design, website creation, and high-performance WebGL architectures for every stage of your business.",
-                "primaryBtnText": "Services",
-                "primaryBtnLink": "/services/web-development",
-                "secondaryBtnText": "Our work",
-                "secondaryBtnLink": "/projects",
-                "image": "/images/hero/hero1.png",
-                "imageAlt": "Web Development Background"
-              },
-              {
-                "id": "3d-art-work",
-                "category": "3D Art Work",
-                "badge": "Available for Work",
-                "title": "Crafting Iconic 3D Art & Character Production",
-                "highlightWords": ["3D Art"],
-                "description": "AAA character retopology, high-poly asset modeling, procedural texturing, and expressive cinematic animations tailored for next-gen worlds.",
-                "primaryBtnText": "Services",
-                "primaryBtnLink": "/services/character-dev",
-                "secondaryBtnText": "Our work",
-                "secondaryBtnLink": "/projects",
-                "image": "/images/hero/hero2.png",
-                "imageAlt": "3D Art Work Background"
-              },
-              {
-                "id": "mobile-app",
-                "category": "Mobile App Development",
-                "badge": "Available for Work",
-                "title": "Engineered For Touch: High-Performance Mobile Apps",
-                "highlightWords": ["Mobile Apps"],
-                "description": "Fluid cross-platform and native mobile applications with offline-first synchronization, buttery 120fps micro-interactions, and enterprise-grade cloud backends.",
-                "primaryBtnText": "Services",
-                "primaryBtnLink": "/services/ar-vr",
-                "secondaryBtnText": "Our work",
-                "secondaryBtnLink": "/projects",
-                "image": "/images/hero/hero3.png",
-                "imageAlt": "Mobile App Development Background"
-              },
-              {
-                "id": "game-development",
-                "category": "Game Development",
-                "badge": "Available for Work",
-                "title": "Next-Gen Game Worlds Built With AAA Fidelity",
-                "highlightWords": ["Game Worlds"],
-                "description": "Full-cycle game production spanning gameplay mechanics, dynamic physics, multiplayer networking, and cinematic shader pipelines across Unreal Engine & Unity.",
-                "primaryBtnText": "Services",
-                "primaryBtnLink": "/services/game-development",
-                "secondaryBtnText": "Our work",
-                "secondaryBtnLink": "/projects",
-                "image": "/images/hero/hero4.jpg",
-                "imageAlt": "Game Development Background"
-              }
-            ]
+            "badge": "Available for Work",
+            "category": "Web Development",
+            "title": "Transform your ideas into digital success with us!",
+            "description": "We're your partner in product design, website creation, and high-performance WebGL architectures for every stage of your business.",
+            "primaryBtnText": "Services",
+            "primaryBtnLink": "/services/web-development",
+            "secondaryBtnText": "Our work",
+            "secondaryBtnLink": "/projects",
+            "image": "/uploads/1790166554378-hero001.jpg",
+            "imageAlt": "Web Development Background"
           }
         },
         {

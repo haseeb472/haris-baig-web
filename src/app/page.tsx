@@ -50,6 +50,7 @@ export default function HomePage() {
             return <HeroSplitReveal key={comp.id} content={comp.content} />;
           
           case 'HeroSlider':
+          case 'HeroBanner':
             return <HeroSlider key={comp.id} content={comp.content} />;
           
           case 'StatsBlock':

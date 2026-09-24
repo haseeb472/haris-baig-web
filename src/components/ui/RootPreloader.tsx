@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -78,13 +79,15 @@ export default function RootPreloader({ children }: { children: React.ReactNode 
           }`}
         >
           {/* Logo Brand Icon */}
-          <div className="flex items-center gap-3 mb-8 scale-110 sm:scale-125">
-            <span className="p-3.5 rounded-2xl bg-gradient-to-r from-neon-purple to-neon-blue text-white font-space font-bold text-2xl flex items-center justify-center shadow-[0_0_35px_rgba(168,85,247,0.35)] animate-pulse">
-              LF
-            </span>
-            <span className="font-space font-bold text-3xl tracking-wider text-white">
-              Logic<span className="text-neon-purple">Forge</span>
-            </span>
+          <div className="flex flex-col items-center gap-3 mb-8">
+            <Image
+              src="/images/icons/brand_logo.svg"
+              alt="Fourth Pixel"
+              width={249}
+              height={287}
+              priority
+              className="w-[90px] sm:w-[105px] h-auto object-contain brightness-0 invert drop-shadow-[0_0_30px_rgba(255,255,255,0.25)] animate-pulse"
+            />
           </div>
 
           {/* Horizontal Progress Bar */}
