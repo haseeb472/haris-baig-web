@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const { searchParams } = request.nextUrl;
-    const table = searchParams.get('table') as keyof Omit<DatabaseSchema, 'settings' | 'newsletter'> | null;
+    const table = searchParams.get('table') as keyof Omit<DatabaseSchema, 'settings' | 'newsletter' | 'header' | 'footer'> | null;
     const body = await request.json();
 
     if (!table) {
