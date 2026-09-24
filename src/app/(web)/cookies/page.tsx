@@ -24,7 +24,7 @@ const COOKIE_SECTIONS: LegalSection[] = [
         content: (
           <>
             <p>
-              Cookies are small text files that websites place on your device when you browse online. They are widely utilized by web platforms to ensure functional operation, remember your preferences, and provide analytical telemetry about how visitors interact with the site.
+              Cookies are small text files that websites place on your device when you browse online. They are widely utilized by the web platforms to ensure functional operation, remember your preferences, and provide analytical telemetry about how visitors interact with the site.
             </p>
             <p>
               In addition to standard HTTP cookies, LogicForge may utilize modern browser storage mechanisms—such as <code className="text-neon-cyan bg-white/5 px-1.5 py-0.5 rounded font-mono text-xs">localStorage</code> and IndexedDB—to cache compressed 3D WebGL scene buffers, Draco geometry, and texture assets. This prevents redundant multi-megabyte downloads on subsequent visits and ensures instant 60 FPS rendering.
